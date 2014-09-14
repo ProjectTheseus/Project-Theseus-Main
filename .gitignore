@@ -36,7 +36,8 @@ Desktop.ini
 ######################
 # Eclipse
 ######################
- 
+
+bin
 .metadata
  
 # Locally stored "Eclipse launch configurations"
