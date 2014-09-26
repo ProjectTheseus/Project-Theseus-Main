@@ -2,6 +2,7 @@ package edu.virginia.cs.sgd.libgdx.entities;
 
 public class Entity {
 
+	public double health, attack, defense;
 	/**
 	 * @param args
 	 */
