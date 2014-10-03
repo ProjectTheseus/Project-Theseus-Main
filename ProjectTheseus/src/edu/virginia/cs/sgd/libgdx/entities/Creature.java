@@ -10,5 +10,9 @@ public class Creature extends Entity {
 	{
 		
 	}
+	
+	public void determineBestAction() {
+		//call the best method
+	}
 
 }
