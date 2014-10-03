@@ -6,7 +6,12 @@ package edu.virginia.cs.sgd.libgdx.entities;
 
 public class Entity {
 
-	public double health, attack, defense;
+	protected int maxHealth, currentHealth, defense,
+		perception, speed;
+	
+//	protected Weapon weapon;
+//	protected Armor armor;
+	
 	/**
 	 * @param args
 	 */
@@ -19,7 +24,11 @@ public class Entity {
 		return 0;
 	}
 	
-	public void findPath() {
+	public void takeDamage() {
+		
+	}
+	
+	public void heal() {
 		
 	}
 	
@@ -27,6 +36,108 @@ public class Entity {
 		
 	}
 	
+	public void useItem() {
+		
+	}
+	
+	/**
+	 * @return the maxHealth
+	 */
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	/**
+	 * @param maxHealth the maxHealth to set
+	 */
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
+	/**
+	 * @return the currentHealth
+	 */
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+
+	/**
+	 * @param currentHealth the currentHealth to set
+	 */
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
+	}
+
+	/**
+	 * @return the defense
+	 */
+	public int getDefense() {
+		return defense;
+	}
+
+	/**
+	 * @param defense the defense to set
+	 */
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+
+	/**
+	 * @return the perception
+	 */
+	public int getPerception() {
+		return perception;
+	}
+
+	/**
+	 * @param perception the perception to set
+	 */
+	public void setPerception(int perception) {
+		this.perception = perception;
+	}
+
+	/**
+	 * @return the speed
+	 */
+	public int getSpeed() {
+		return speed;
+	}
+
+	/**
+	 * @param speed the speed to set
+	 */
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	/**
+	 * @return the weapon
+	 */
+//	public Weapon getWeapon() {
+//		return weapon;
+//	}
+//
+//	/**
+//	 * @param weapon the weapon to set
+//	 */
+//	public void setWeapon(Weapon weapon) {
+//		this.weapon = weapon;
+//	}
+//
+//	/**
+//	 * @return the armor
+//	 */
+//	public Armor getArmor() {
+//		return armor;
+//	}
+//
+//	/**
+//	 * @param armor the armor to set
+//	 */
+//	public void setArmor(Armor armor) {
+//		this.armor = armor;
+//	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
