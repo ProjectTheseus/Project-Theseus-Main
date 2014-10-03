@@ -24,8 +24,11 @@ public class Entity {
 		return 0;
 	}
 	
-	public void takeDamage() {
-		
+	public void takeDamage(int damage) {
+		this.currentHealth -= damage;
+		if(this.currentHealth <= 0){
+			this.die();
+		}
 	}
 	
 	public void heal() {
