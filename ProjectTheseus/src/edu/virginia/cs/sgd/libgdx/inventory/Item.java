@@ -2,12 +2,27 @@ package edu.virginia.cs.sgd.libgdx.inventory;
 
 public class Item {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	String name;
+	String type;
+	
+	public Item(String name, String type) {
+		this.name = name;
+		this.type = type;
+	}
+	
+	public boolean equals(Item item) {
+		if (this.name.equals(item.getName())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 }
