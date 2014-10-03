@@ -5,45 +5,83 @@ import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 public class Player {
 
 
-	public int health;
+	private int maxHealth;
+	private int currentHealth;
 	private int defense;
-	public int power;
-	public int exp;
-	public int level;
+	private int viewDistance;
+	private int speed;
 	
-	public Inventory inv;
+	private int xp;
+	private int nextLevelXp;
+	private int level;
 	
-	public Object weapon;
-	public Object armor;
+	private Object currentWeapon;
+	private Object currentArmour;
 	
-//	/**
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	private Inventory inventory;
+	private Inventory quickInventory;
 	
-	public Player() {
-		health = 100;
-		defense = 100;
-		power = 100;
-		exp = 0;
-		level = 0;
-	}
-	
-	public int getAttPow() {
-		return power;
-		//return power + weapon.getPow();
-	}
-	
-	public void attacked(int attPow) {
-		health = health - attPow/defense;
+	public void player() {
+		xp = 0;
+		level = 1;
+		nextLevelXp = 1000;
 	}
 	
 	public void move() {
 		
 	}
 	
+	public void detectPlayer() {
+		
+	}
+	
+	public void attack(Object attackee) {
+	}
+	
+	public void takeDamage() {
+		if (currentHealth <= 0) die();
+	}
+	
+	public void heal() {
+		
+	}
+	
+	public void die() {
+		
+	}
+	
+	public void useItem() {
+		
+	}
+	
+	public void defend() {
+		
+	}
+	
+	public void Interact() {
+		
+	}
+	
+	public void accessInventory() {
+		
+	}
+	
+	public void level() {
+		nextLevelXp += 1000;
+		level++;
+		if (xp >= nextLevelXp) {
+			level();
+		}
+	}
+	
+	public void gainXP(int xp) {
+		this.xp += xp;
+		
+		//determines if a player levels up
+		if (xp >= nextLevelXp) {
+			level();
+		}
+		
+	}
 
 }
