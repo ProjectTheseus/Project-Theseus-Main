@@ -21,12 +21,8 @@ public class Entity {
 		this.currentHealth = maxH;
 		this.defense = def;
 		this.perception = 0;
-		this.speed = speed;
+		this.speed = spd;
 	}
-	
-	/**
-	 * @param args
-	 */
 	
 	public void move() {
 		
@@ -58,79 +54,49 @@ public class Entity {
 		
 	}
 	
-	/**
-	 * @return the maxHealth
-	 */
 	public int getMaxHealth() {
 		return maxHealth;
 	}
 
-	/**
-	 * @param maxHealth the maxHealth to set
-	 */
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
 	}
 
-	/**
-	 * @return the currentHealth
-	 */
 	public int getCurrentHealth() {
 		return currentHealth;
 	}
 
-	/**
-	 * @param currentHealth the currentHealth to set
-	 */
 	public void setCurrentHealth(int currentHealth) {
 		this.currentHealth = currentHealth;
 	}
 
-	/**
-	 * @return the defense
-	 */
 	public int getDefense() {
 		return defense;
 	}
 
-	/**
-	 * @param defense the defense to set
-	 */
 	public void setDefense(int defense) {
 		this.defense = defense;
 	}
 
-	/**
-	 * @return the perception
-	 */
 	public int getPerception() {
 		return perception;
 	}
 
-	/**
-	 * @param perception the perception to set
-	 */
 	public void setPerception(int perception) {
 		this.perception = perception;
 	}
 
-	/**
-	 * @return the speed
-	 */
 	public int getSpeed() {
 		return speed;
 	}
 
-	/**
-	 * @param speed the speed to set
-	 */
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 
-	/**
-	 * @return the weapon
-	 */
+//	/**
+//	 * @return the weapon
+//	 */
 //	public Weapon getWeapon() {
 //		return weapon;
 //	}
@@ -157,7 +123,6 @@ public class Entity {
 //	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
