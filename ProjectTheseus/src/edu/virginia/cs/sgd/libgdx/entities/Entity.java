@@ -1,5 +1,7 @@
 package edu.virginia.cs.sgd.libgdx.entities;
 
+import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
+
 //superclass for creatures
 //stats: health, defense, other things, location (point class)
 //skeleton methods: move, attack, find path
@@ -8,6 +10,7 @@ public class Entity {
 
 	protected int maxHealth, currentHealth, defense,
 		perception, speed;
+	protected MazeNode location;
 	
 //	protected Weapon weapon;
 //	protected Armor armor;
@@ -17,6 +20,7 @@ public class Entity {
 	}
 	
 	public Entity(int maxH, int def, int spd) {
+		this.location = new MazeNode(0, 0, 0);
 		this.maxHealth = maxH;
 		this.currentHealth = maxH;
 		this.defense = def;
