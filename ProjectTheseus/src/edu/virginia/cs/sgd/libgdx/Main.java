@@ -11,12 +11,7 @@ import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.player.Player;
 
 public class Main {
-	public static void main(String[] args) {
-		
-		Player p = new Player();
-		p.gainXP(2000);
-		System.out.println(p.level);
-		
+	public static void main(String[] args) {		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Project Theseus";
 		cfg.useGL20 = false;
