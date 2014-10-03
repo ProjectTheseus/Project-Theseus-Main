@@ -6,17 +6,17 @@ public class Player extends Entity {
 
 	private int xp;
 	private int level;
-
 	// private QuickInventory quickInventory;
 	// private Inventory inventory;
 
 	public Player() {
+		super();
 		this.xp = 0;
 		this.level = 1;
 	}
 
 	public void waitTurn() {
-		defense++;
+		this.defense++;
 	}
 
 	public void interact() {
@@ -28,20 +28,13 @@ public class Player extends Entity {
 	}
 
 	public void level() {
-		level++;
+		this.level++;
 	}
 
 	public void gainXp(int xp) {
 		this.xp += xp;
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public int getXp() {
 		return xp;
@@ -57,6 +50,10 @@ public class Player extends Entity {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public static void main(String[] args) {
+
 	}
 
 }
