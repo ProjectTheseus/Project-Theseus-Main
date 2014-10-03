@@ -1,6 +1,21 @@
 package edu.virginia.cs.sgd.libgdx.player;
 
-public class Player {
+import edu.virginia.cs.sgd.libgdx.entities.Entity;
+
+public class Player extends Entity{
+
+	private int xp;
+	private int level;
+//	private QuickInventory quickInventory;
+//	private Inventory inventory;
+
+	public void level() {
+		level++;
+	}
+	
+	public void gainXp(int xp) {
+		this.xp += xp;
+	}
 
 	/**
 	 * @param args
@@ -8,6 +23,22 @@ public class Player {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public int getXp() {
+		return xp;
+	}
+
+	public void setXp(int xp) {
+		this.xp = xp;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }
