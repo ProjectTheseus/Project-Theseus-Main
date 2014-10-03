@@ -31,8 +31,11 @@ public class Entity {
 		}
 	}
 	
-	public void heal() {
-		
+	public void heal(int healAmount) {
+		this.currentHealth += healAmount;
+		if(this.currentHealth > this.maxHealth) {
+			this.currentHealth = maxHealth;
+		}
 	}
 	
 	public void die() {
