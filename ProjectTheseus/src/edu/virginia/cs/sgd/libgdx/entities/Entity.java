@@ -19,8 +19,8 @@ public class Entity {
 		//default values
 	}
 	
-	public Entity(int maxH, int def, int spd) {
-		this.location = new MazeNode(0, 0, 0);
+	public Entity(MazeNode location, int maxH, int def, int spd) {
+		this.location = location;
 		this.maxHealth = maxH;
 		this.currentHealth = maxH;
 		this.defense = def;
