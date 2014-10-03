@@ -16,7 +16,7 @@ public class Player extends Entity {
 	}
 
 	public void waitTurn() {
-
+		defense++;
 	}
 
 	public void interact() {
