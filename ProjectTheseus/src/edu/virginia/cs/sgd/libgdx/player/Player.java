@@ -9,6 +9,18 @@ public class Player extends Entity{
 //	private QuickInventory quickInventory;
 //	private Inventory inventory;
 
+	public void waitTurn() {
+		
+	}
+	
+	public void interact() {
+		
+	}
+	
+	public void accessInventory() {
+		
+	}
+	
 	public void level() {
 		level++;
 	}
