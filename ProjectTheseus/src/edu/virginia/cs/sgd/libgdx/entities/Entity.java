@@ -11,6 +11,18 @@ public class Entity {
 	
 //	protected Weapon weapon;
 //	protected Armor armor;
+
+	public Entity() {
+		//default values
+	}
+	
+	public Entity(int maxH, int def, int spd) {
+		this.maxHealth = maxH;
+		this.currentHealth = maxH;
+		this.defense = def;
+		this.perception = 0;
+		this.speed = speed;
+	}
 	
 	/**
 	 * @param args
