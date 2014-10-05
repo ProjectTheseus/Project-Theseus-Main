@@ -9,7 +9,7 @@ import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 public class Entity {
 
 	protected int maxHealth, currentHealth, attack, defense,
-		perception, speed;
+		speed, perception;
 	protected MazeNode location;
 	
 //	protected Weapon weapon;
@@ -19,13 +19,14 @@ public class Entity {
 		//default values
 	}
 	
-	public Entity(MazeNode location, int maxH, int def, int spd) {
+	public Entity(MazeNode location, int maxH, int atk, int def, int spd) {
 		this.location = location;
 		this.maxHealth = maxH;
 		this.currentHealth = maxH;
+		this.attack = atk;
 		this.defense = def;
-		this.perception = 0;
 		this.speed = spd;
+		this.perception = 0;
 	}
 	
 	public void move() {
