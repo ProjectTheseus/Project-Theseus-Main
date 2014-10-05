@@ -8,7 +8,7 @@ import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 
 public class Entity {
 
-	protected int maxHealth, currentHealth, defense,
+	protected int maxHealth, currentHealth, attack, defense,
 		perception, speed;
 	protected MazeNode location;
 	
@@ -32,8 +32,8 @@ public class Entity {
 		
 	}
 	
-	public int attack() { //return number of points on attack
-		return 0;
+	public void attack(Entity e) {
+		
 	}
 	
 	public void takeDamage(int damage) {
