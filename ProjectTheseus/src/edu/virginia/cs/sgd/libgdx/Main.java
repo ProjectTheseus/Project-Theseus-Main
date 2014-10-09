@@ -6,9 +6,7 @@ package edu.virginia.cs.sgd.libgdx;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
-import edu.virginia.cs.sgd.libgdx.player.Player;
 
 public class Main {
 	public static void main(String[] args) {		

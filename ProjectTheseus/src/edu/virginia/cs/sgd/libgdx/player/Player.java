@@ -4,36 +4,20 @@ import edu.virginia.cs.sgd.libgdx.entities.Entity;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 
 public class Player extends Entity {
-
-	private int maxHealth;
-	private int currentHealth;
-	private int defense;
-	private int speed;
 	
-	private int xp;
-	private int nextLevelXp;
-	private int level;
+	private int xp, nextLevelXp, level;
+	private Inventory inventory, quickInventory;
 	
-	private Object currentWeapon;
-	private Object currentArmour;
-	
-	private Inventory inventory;
-	private Inventory quickInventory;
-	
-	public void player() {
+	public Player() {
+		super();
 		xp = 0;
 		nextLevelXp = 1000;
 		level = 1;
+		//inventory = new Inventory();
+		//quickInventory = inventory.getQuick();
 	}
 	
-	public void move() {
-		
-	}
-	
-	public void detectPlayer() {
-		
-	}
-	
+	@Override
 	public void attack(Entity attackee) {
 		// TODO implement commented out section
 		//int dmg = currentWeapon.getDmg();
@@ -41,6 +25,7 @@ public class Player extends Entity {
 		attackee.takeDamage(dmg);
 	}
 	
+	@Override
 	public void takeDamage(int dmg) {
 		// TODO need to add currentArmour into account
 		dmg = dmg - defense;
@@ -51,14 +36,17 @@ public class Player extends Entity {
 			die();
 	}
 	
+	@Override
 	public void heal(int hp) {
 		currentHealth += hp;
 	}
 	
+	@Override
 	public void die() {
 		
 	}
 	
+	@Override
 	public void useItem() {
 		
 	}
