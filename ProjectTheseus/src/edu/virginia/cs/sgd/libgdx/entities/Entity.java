@@ -52,8 +52,9 @@ public class Entity {
 		double hit = Math.random();
 		
 		if (hit <= accuracy) {
-			e.currentHealth = e.currentHealth - damage;
+			e.takeDamage();
 		}
+		
 		
 
 		
