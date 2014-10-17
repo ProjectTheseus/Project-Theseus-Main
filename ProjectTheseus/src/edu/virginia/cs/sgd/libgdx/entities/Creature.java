@@ -10,6 +10,11 @@ public class Creature extends Entity {
 	}
 
 	public boolean detectPlayer() {
+		int xdiff = Math.abs(this.location.getX() - player.location.getX());
+		int ydiff = Math.abs(this.location.getY() - player.location.getY());
+		if (xdiff <= 1 && ydiff <= 1) {
+			return true;
+		}
 		return false;
 	}
 
