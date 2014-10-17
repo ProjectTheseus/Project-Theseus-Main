@@ -46,8 +46,8 @@ public class Entity {
 		//return accuracy of move
 		//return damage of best move
 		
-		//double accuracy = self.weapon.getAccuracy();
-		//int damage = self.attack + self.weapon.getAttack();
+		//double accuracy = this.weapon.getAccuracy();
+		//int damage = this.attack + this.weapon.getAttack();
 		double accuracy = .5; //a percent
 		int damage = 10;
 		
@@ -65,8 +65,10 @@ public class Entity {
 	}
 	
 	public void takeDamage(int damage) {
-		this.currentHealth -= damage;
-		if(this.currentHealth <= 0){
+		// int blocked = this.defense + this.armor.getDefense();
+		int finalDamage = damage; // Math.min(damage - blocked, 0);
+		this.currentHealth -= finalDamage;
+		if (this.currentHealth <= 0) {
 			this.die();
 		}
 	}
