@@ -1,7 +1,7 @@
 package edu.virginia.cs.sgd.libgdx.entities;
 
-import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
-import edu.virginia.cs.sgd.libgdx.player.Player;
+import com.badlogic.gdx.graphics.g3d.ModelInstance;
+
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 
 //superclass for creatures
@@ -13,6 +13,7 @@ public class Entity {
 	protected int maxHealth, currentHealth, attack, defense,
 		speed, perception;
 	protected MazeNode location;
+	protected ModelInstance model;
 	
 //	protected Weapon weapon;
 //	protected Armor armor;
@@ -21,8 +22,9 @@ public class Entity {
 		//default values
 	}
 	
-	public Entity(MazeNode location, int maxH, int atk, int def, int spd) {
+	public Entity(MazeNode location, ModelInstance model, int maxH, int atk, int def, int spd) {
 		this.location = location;
+		this.model = model;
 		this.maxHealth = maxH;
 		this.currentHealth = maxH;
 		this.attack = atk;
