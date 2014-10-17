@@ -46,6 +46,8 @@ public class Entity {
 		//return accuracy of move
 		//return damage of best move
 		
+		//double accuracy = self.weapon.getAccuracy();
+		//int damage = self.attack + self.weapon.getAttack();
 		double accuracy = .5; //a percent
 		int damage = 10;
 		
