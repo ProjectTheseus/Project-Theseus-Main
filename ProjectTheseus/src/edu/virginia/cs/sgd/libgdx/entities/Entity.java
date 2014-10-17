@@ -38,7 +38,6 @@ public class Entity {
 	}
 	
 	public void attack(Entity e) {
-		
 		//if something is in front of you, can attack
 		//take percent hit
 		//deal damage
@@ -46,29 +45,24 @@ public class Entity {
 		//return accuracy of move
 		//return damage of best move
 		
+		int damage = this.getTotalAttack();
 		//double accuracy = this.weapon.getAccuracy();
-		//int damage = this.attack + this.weapon.getAttack();
 		double accuracy = .5; //a percent
-		int damage = 10;
 		
 		double hit = Math.random();
 		
 		if (hit <= accuracy) {
 			e.takeDamage(damage);
 		}
-		
-		
 
-		
-
-		
 	}
 	
 	public void takeDamage(int damage) {
-		// int blocked = this.defense + this.armor.getDefense();
-		int finalDamage = damage; // Math.min(damage - blocked, 0);
+		int blocked = this.getTotalDefense();
+		int finalDamage = Math.min(damage - blocked, 0);
 		this.currentHealth -= finalDamage;
 		if (this.currentHealth <= 0) {
+			this.currentHealth = 0;
 			this.die();
 		}
 	}
@@ -88,6 +82,14 @@ public class Entity {
 		
 	}
 	
+	public int getTotalAttack(){
+		return attack; // + weapon.getAttack();
+	}
+	
+	public int getTotalDefense(){
+		return defense; // + armor.getDefense();
+	}
+	
 	public int getMaxHealth() {
 		return maxHealth;
 	}
@@ -102,6 +104,14 @@ public class Entity {
 
 	public void setCurrentHealth(int currentHealth) {
 		this.currentHealth = currentHealth;
+	}
+
+	public int getAttack() {
+		return attack;
+	}
+
+	public void setAttack(int attack) {
+		this.attack = attack;
 	}
 
 	public int getDefense() {
