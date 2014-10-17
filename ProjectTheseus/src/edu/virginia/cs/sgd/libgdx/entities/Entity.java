@@ -39,6 +39,26 @@ public class Entity {
 	
 	public void attack(Entity e) {
 		
+		//if something is in front of you, can attack
+		//take percent hit
+		//deal damage
+		//static method to find best move
+		//return accuracy of move
+		//return damage of best move
+		
+		double accuracy = .5; //a percent
+		int damage = 10;
+		
+		double hit = Math.random();
+		
+		if (hit <= accuracy) {
+			e.currentHealth = e.currentHealth - damage;
+		}
+		
+
+		
+
+		
 	}
 	
 	public void takeDamage(int damage) {
