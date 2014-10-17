@@ -52,7 +52,7 @@ public class Entity {
 		double hit = Math.random();
 		
 		if (hit <= accuracy) {
-			e.takeDamage();
+			e.takeDamage(damage);
 		}
 		
 		
