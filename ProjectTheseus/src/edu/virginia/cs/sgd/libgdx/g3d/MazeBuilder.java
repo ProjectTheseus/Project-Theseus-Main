@@ -23,7 +23,6 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
-import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
@@ -212,9 +211,9 @@ public class MazeBuilder extends AbstractScreen {
 					}
 					if (m.getGrid()[x / spacing][y / spacing][z / spacing]
 							.equals(m.getEnd())) {
-						 models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
-						 Usage.Position | Usage.Normal
-						 | Usage.TextureCoordinates));
+						models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
+								Usage.Position | Usage.Normal
+										| Usage.TextureCoordinates));
 						count++;
 						instances.add(new ModelInstance(models.get(count), (m
 								.getEnd().getX() * spacing),

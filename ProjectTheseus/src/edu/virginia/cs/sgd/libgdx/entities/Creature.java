@@ -1,18 +1,17 @@
 package edu.virginia.cs.sgd.libgdx.entities;
 
 public class Creature extends Entity {
-	
-	public Creature(){
+
+	public Creature() {
 		super();
 	}
-	
-	public void detectPlayer()
-	{
-		
+
+	public void detectPlayer() {
+
 	}
-	
+
 	public void determineBestAction() {
-		//call the best method
+		// call the best method
 	}
 
 }
