@@ -6,7 +6,6 @@ package edu.virginia.cs.sgd.libgdx.g3d;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -24,10 +23,12 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
+import com.badlogic.gdx.graphics.g3d.utils.MeshPartBuilder;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.path.Path;
+import edu.virginia.cs.sgd.libgdx.screen.AbstractScreen;
 import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
 
 /**
@@ -35,7 +36,7 @@ import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
  * 
  *         MazeBuilder class - creates 3D environment and builds Maze
  */
-public class MazeBuilder implements ApplicationListener {
+public class MazeBuilder extends AbstractScreen {
 	private Maze m; // holds maze object
 	private Path shortPath; // holds path object
 	// private String dims = ""; // holds response string from input dialog box
@@ -62,7 +63,9 @@ public class MazeBuilder implements ApplicationListener {
 	 * Creates app
 	 */
 	@Override
-	public void create() {
+	public void show() {
+		super.show();
+
 		x = 5;
 		y = 5;
 
@@ -71,7 +74,6 @@ public class MazeBuilder implements ApplicationListener {
 		// generates Path given the generated Maze
 		shortPath = new Path(m, m.getStart(), m.getEnd());
 
-		loadImmediateAssets();
 		sam = SingletonAssetManager.getInstance();
 		spriteBatch = new SpriteBatch();
 		font = new BitmapFont();
@@ -210,9 +212,9 @@ public class MazeBuilder implements ApplicationListener {
 					}
 					if (m.getGrid()[x / spacing][y / spacing][z / spacing]
 							.equals(m.getEnd())) {
-						models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
-								Usage.Position | Usage.Normal
-										| Usage.TextureCoordinates));
+						 models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
+						 Usage.Position | Usage.Normal
+						 | Usage.TextureCoordinates));
 						count++;
 						instances.add(new ModelInstance(models.get(count), (m
 								.getEnd().getX() * spacing),
@@ -222,7 +224,7 @@ public class MazeBuilder implements ApplicationListener {
 			}
 		}
 
-		camController = new MyCameraInputController(cam, m);
+		camController = new MyCameraInputController(cam, m, this);
 		Gdx.input.setInputProcessor(camController);
 	}
 
@@ -230,7 +232,7 @@ public class MazeBuilder implements ApplicationListener {
 	 * Renders 3D objects
 	 */
 	@Override
-	public void render() {
+	public void render(float delta) {
 		camController.update();
 
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(),
@@ -267,23 +269,6 @@ public class MazeBuilder implements ApplicationListener {
 			// font.draw(spriteBatch, str, 500, 20);
 		}
 		spriteBatch.end();
-	}
-
-	/**
-	 * Loads assets into asset manager
-	 */
-	private void loadImmediateAssets() {
-
-		SingletonAssetManager m = SingletonAssetManager.getInstance();
-		// m.load("LibGDX", "data/libgdx.png", Texture.class);
-
-		m.load("Wall", "resources/Rough Block Wall.jpg", Texture.class);
-		m.load("Minotaur", "resources/Minotaur.jpg", Texture.class);
-
-		// m.load("BGMusic", "data/theSituationMainTheme2.wav", Music.class);
-
-		m.finishLoading();
-
 	}
 
 	/**

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
+import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
 
 /**
  * @author Dylan
@@ -19,6 +20,7 @@ import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
  *         moves/rotates camera
  */
 public class MyCameraInputController extends CameraInputController {
+	private MazeBuilder mb; // holds MazeBuilder object
 	private Maze m; // holds Maze object
 	private MazeNode current; // holds current MazeNode
 	// private Path path; // holds Path object
@@ -42,12 +44,13 @@ public class MyCameraInputController extends CameraInputController {
 	 * @param camera
 	 * @param m
 	 */
-	public MyCameraInputController(Camera camera, Maze m) {
+	public MyCameraInputController(Camera camera, Maze m, MazeBuilder mb) {
 		super(camera);
 		super.autoUpdate = true;
 		super.rotateLeftKey = Input.Keys.D;
 		super.rotateLeftKey = Input.Keys.A;
 		this.m = m;
+		this.mb = mb;
 		this.faceTo = m.oppDir(m.getStartSide());
 		this.backTo = m.getStartSide();
 		// this.looking = 1;
@@ -80,6 +83,16 @@ public class MyCameraInputController extends CameraInputController {
 		// input taken if the maze is unfinished
 		if (!m.getAtEnd() && current != null) {
 			switch (keycode) {
+
+			// Restart level
+			case Input.Keys.BACKSPACE:
+				mb.changeScreen(MazeBuilder.class);
+				break;
+
+			// Restart game
+			case Input.Keys.ESCAPE:
+				mb.changeScreen(SplashScreen.class);
+				break;
 
 			// Left arrow or A keys turn camera left
 			// case Input.Keys.LEFT:
