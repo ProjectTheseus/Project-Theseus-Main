@@ -228,6 +228,7 @@ public class MazeBuilder extends AbstractScreen {
 		Gdx.input.setInputProcessor(camController);
 
 		game = new Game(camController, this);
+		game.getCreatures().get(0).setBox(instances.get(count));
 	}
 
 	/**

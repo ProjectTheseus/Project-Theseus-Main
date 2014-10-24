@@ -97,7 +97,7 @@ public class MyCameraInputController extends CameraInputController {
 	@Override
 	public boolean keyDown(int keycode) {
 		// input taken if the maze is unfinished
-		if (!m.getAtEnd() && current != null && game.isPlayerTurn() && !isBlocked()) {
+		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			switch (keycode) {
 
 			// Restart level
@@ -139,7 +139,8 @@ public class MyCameraInputController extends CameraInputController {
 
 			// W key moves camera forward
 			case Input.Keys.W:
-				if (System.currentTimeMillis() - prevTime > 500) {
+				if (System.currentTimeMillis() - prevTime > 500
+						&& !isBlocked(true)) {
 
 					pull = new CamPull(this, true, firstMove);
 					if (firstMove
@@ -170,7 +171,8 @@ public class MyCameraInputController extends CameraInputController {
 
 			// S key moves camera forward
 			case Input.Keys.S:
-				if (System.currentTimeMillis() - prevTime > 500) {
+				if (System.currentTimeMillis() - prevTime > 500
+						&& !isBlocked(false)) {
 					pull = new CamPull(this, false, firstMove);
 					if (firstMove) {
 						break;
@@ -392,14 +394,23 @@ public class MyCameraInputController extends CameraInputController {
 			}
 		}
 	}
-	
-	public boolean isBlocked() {
-		for (Creature c : game.getCreatures()) {
-			if (c.getLocation() == current.getNeighbors()[faceTo]) {
-				return true;
+
+	public boolean isBlocked(boolean front) {
+		if (front) {
+			for (Creature c : game.getCreatures()) {
+				if (c.getLocation() == current.getNeighbors()[faceTo]) {
+					return true;
+				}
 			}
+			return false;
+		} else {
+			for (Creature c : game.getCreatures()) {
+				if (c.getLocation() == current.getNeighbors()[backTo]) {
+					return true;
+				}
+			}
+			return false;
 		}
-		return false;
 	}
 
 	/**
