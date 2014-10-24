@@ -32,7 +32,7 @@ public class Creature extends Entity {
 	}
 	
 	public void move() {
-
+		
 	}
 
 	public ModelInstance getBox() {

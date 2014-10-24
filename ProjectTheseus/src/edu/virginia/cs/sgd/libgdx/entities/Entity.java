@@ -29,10 +29,6 @@ public class Entity {
 		this.perception = 0;
 	}
 
-	public void move() {
-
-	}
-
 	public void attack(Entity e) {
 
 		// if something is in front of you, can attack
