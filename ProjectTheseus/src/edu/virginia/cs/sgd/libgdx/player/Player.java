@@ -1,5 +1,6 @@
 package edu.virginia.cs.sgd.libgdx.player;
 
+import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 
@@ -7,9 +8,21 @@ public class Player extends Entity {
 
 	private int xp, nextLevelXp, level;
 	private Inventory inventory, quickInventory;
+	private MyCameraInputController cam;
 
 	public Player() {
 		super();
+		xp = 0;
+		nextLevelXp = 1000;
+		level = 1;
+		// inventory = new Inventory();
+		// quickInventory = inventory.getQuick();
+	}
+
+	public Player(MyCameraInputController cam) {
+		// Sample base stats
+		super(cam.getCurrent(), 100, 1, 0, 1);
+		this.cam = cam;
 		xp = 0;
 		nextLevelXp = 1000;
 		level = 1;

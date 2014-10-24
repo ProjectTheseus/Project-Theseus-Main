@@ -26,6 +26,7 @@ import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
+import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.path.Path;
 import edu.virginia.cs.sgd.libgdx.screen.AbstractScreen;
 import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
@@ -38,7 +39,7 @@ import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
 public class MazeBuilder extends AbstractScreen {
 	private Maze m; // holds maze object
 	private Path shortPath; // holds path object
-	// private String dims = ""; // holds response string from input dialog box
+	private Game game; // holds game object
 	private int x; // holds given x dimension
 	private int y; // holds given y dimension
 	public final static int spacing = 8; // spacing between walls
@@ -65,8 +66,8 @@ public class MazeBuilder extends AbstractScreen {
 	public void show() {
 		super.show();
 
-		x = 5;
-		y = 5;
+		x = game.getLevel() + 4;
+		y = game.getLevel() + 4;
 
 		// generates Maze with correct dimensions
 		m = new Maze(x, y);
@@ -225,6 +226,8 @@ public class MazeBuilder extends AbstractScreen {
 
 		camController = new MyCameraInputController(cam, m, this);
 		Gdx.input.setInputProcessor(camController);
+
+		game = new Game(camController);
 	}
 
 	/**

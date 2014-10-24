@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
+import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.screen.AbstractScreen;
 import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
 
