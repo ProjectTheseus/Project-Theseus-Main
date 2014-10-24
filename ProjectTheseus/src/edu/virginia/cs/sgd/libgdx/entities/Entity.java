@@ -51,12 +51,14 @@ public class Entity {
 
 	public void takeDamage(int damage) {
 		int blocked = this.getTotalDefense() / 2;
-		int finalDamage = Math.min(damage - blocked, 0);
+		int finalDamage = Math.max(damage - blocked, 0);
 		this.currentHealth -= finalDamage;
 		if (this.currentHealth <= 0) {
 			this.currentHealth = 0;
 			this.die();
 		}
+		System.out.println("Monster takes: "+ finalDamage+" out of " + damage);
+		System.out.println("Monster's health: "+ currentHealth);
 	}
 
 	public void heal(int healAmount) {
