@@ -30,6 +30,10 @@ public class Creature extends Entity {
 	public void determineBestAction() {
 		// call the best method
 	}
+	
+	public void move() {
+
+	}
 
 	public ModelInstance getBox() {
 		return box;
