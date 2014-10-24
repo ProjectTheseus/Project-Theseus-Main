@@ -32,10 +32,6 @@ public class Creature extends Entity {
 		return false;
 	}
 
-	public void move() {
-
-	}
-
 	public void determineBestAction() {
 		if(this.detectPlayer()){
 			this.attack(player);
