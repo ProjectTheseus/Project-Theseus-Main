@@ -59,7 +59,8 @@ public class Game {
 	}
 
 	private void generateCreatures() {
-		Creature minotaur = new Creature(player, mb.getMaze().getEnd(), 100, 10, 5, 0);
+		Creature minotaur = new Creature(this, player, mb.getMaze().getEnd(),
+				100, 10, 0, 0);
 		creatures.add(minotaur);
 	}
 
@@ -87,6 +88,15 @@ public class Game {
 	 * @return the creatures
 	 */
 	public ArrayList<Creature> getCreatures() {
+		ArrayList<Creature> toBeRemoved = new ArrayList<Creature>();
+		for (Creature c : creatures) {
+			if (c.getCurrentHealth() <= 0) {
+				toBeRemoved.add(c);
+			}
+		}
+		for (Creature c : toBeRemoved) {
+			creatures.remove(c);
+		}
 		return creatures;
 	}
 
@@ -104,7 +114,9 @@ public class Game {
 	public void endPlayerTurn() {
 		playerTurn = false;
 		if (!playerTurn) {
-			creatures.get(0).determineBestAction();
+			if (creatures.size() > 0) {
+				creatures.get(0).determineBestAction();
+			}
 			playerTurn = true;
 		}
 	}

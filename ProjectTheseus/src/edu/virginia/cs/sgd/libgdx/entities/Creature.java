@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
+import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.player.Player;
 
 public class Creature extends Entity {
 
+	private Game game;
 	private ModelInstance box;
 	private Player player;
 	private cPull cPull;
@@ -20,8 +22,9 @@ public class Creature extends Entity {
 		super();
 	}
 
-	public Creature(Player player, MazeNode location, int maxH, int atk, int def, int spd) {
+	public Creature(Game game, Player player, MazeNode location, int maxH, int atk, int def, int spd) {
 		super(location, maxH, atk, def, spd);
+		this.game = game;
 		this.player = player;
 	}
 
