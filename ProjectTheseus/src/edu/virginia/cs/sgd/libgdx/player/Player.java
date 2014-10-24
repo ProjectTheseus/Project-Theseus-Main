@@ -36,13 +36,13 @@ public class Player extends Entity {
 
 	@Override
 	public void attack(Entity attackee) {
-		// TODO implement commented out section
+		// Weapon taken care of in super class
 		super.attack(attackee);
 	}
 
 	@Override
 	public void takeDamage(int dmg) {
-		// TODO need to add currentArmour into account
+		// Armor taken care of in super class
 		super.takeDamage(dmg);
 	}
 
