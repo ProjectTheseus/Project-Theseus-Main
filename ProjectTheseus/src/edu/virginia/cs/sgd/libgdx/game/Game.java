@@ -114,7 +114,7 @@ public class Game {
 	public void endPlayerTurn() {
 		playerTurn = false;
 		if (!playerTurn) {
-			if (creatures.size() > 0) {
+			if (this.getCreatures().size() > 0) {
 				creatures.get(0).determineBestAction();
 			}
 			playerTurn = true;

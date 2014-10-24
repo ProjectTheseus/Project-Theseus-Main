@@ -80,13 +80,18 @@ public class MyCameraInputController extends CameraInputController {
 
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
-		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
-			for (Creature c : game.getCreatures()) {
-				if (c.getLocation().equals(current.getNeighbors()[faceTo])) {
-					game.getPlayer().attack(c);;
+		if (System.currentTimeMillis() - prevTime > 500) {
+			if (!m.getAtEnd() && current != null && game.isPlayerTurn()
+					&& !game.getPlayer().isDead()) {
+				for (Creature c : game.getCreatures()) {
+					if (c.getLocation().equals(current.getNeighbors()[faceTo]) && !current.getWalls()[faceTo]) {
+						game.getPlayer().attack(c);
+						;
+					}
 				}
+				game.endPlayerTurn();
 			}
-			game.endPlayerTurn();
+			prevTime = System.currentTimeMillis();
 		}
 		return true;
 	}
@@ -116,7 +121,8 @@ public class MyCameraInputController extends CameraInputController {
 
 			case Input.Keys.A:
 				if (System.currentTimeMillis() - prevTime > 500
-						&& !(firstMove && System.currentTimeMillis() - prevTime < 1000)) {
+						&& !(firstMove && System.currentTimeMillis() - prevTime < 1000)
+						&& !game.getPlayer().isDead()) {
 					pivot = new CamPivot(this, true);
 					new Thread(pivot).start();
 					changeDir(true);
@@ -129,7 +135,8 @@ public class MyCameraInputController extends CameraInputController {
 
 			case Input.Keys.D:
 				if (System.currentTimeMillis() - prevTime > 500
-						&& !(firstMove && System.currentTimeMillis() - prevTime < 1000)) {
+						&& !(firstMove && System.currentTimeMillis() - prevTime < 1000)
+						&& !game.getPlayer().isDead()) {
 					pivot = new CamPivot(this, false);
 					new Thread(pivot).start();
 					changeDir(false);
@@ -140,7 +147,7 @@ public class MyCameraInputController extends CameraInputController {
 			// W key moves camera forward
 			case Input.Keys.W:
 				if (System.currentTimeMillis() - prevTime > 500
-						&& !isBlocked(true)) {
+						&& !isBlocked(true) && !game.getPlayer().isDead()) {
 
 					pull = new CamPull(this, true, firstMove);
 					if (firstMove
@@ -153,16 +160,16 @@ public class MyCameraInputController extends CameraInputController {
 					} else if (!current.getWalls()[faceTo]
 							&& current.getNeighbors()[faceTo] != null
 							&& !firstMove) {
+						current = current.getNeighbors()[faceTo];
 						new Thread(pull).start();
 						m.incrementMoveCount();
-						current = current.getNeighbors()[faceTo];
 						prevTime = System.currentTimeMillis();
 						game.endPlayerTurn();
 					} else if (current.equals(m.getEnd())
 							&& backTo == m.getStartSide()) {
+						current = current.getNeighbors()[faceTo];
 						new Thread(pull).start();
 						m.incrementMoveCount();
-						current = current.getNeighbors()[faceTo];
 						prevTime = System.currentTimeMillis();
 						game.endPlayerTurn();
 					}
@@ -172,15 +179,15 @@ public class MyCameraInputController extends CameraInputController {
 			// S key moves camera forward
 			case Input.Keys.S:
 				if (System.currentTimeMillis() - prevTime > 500
-						&& !isBlocked(false)) {
+						&& !isBlocked(false) && !game.getPlayer().isDead()) {
 					pull = new CamPull(this, false, firstMove);
 					if (firstMove) {
 						break;
 					} else if (!current.getWalls()[backTo]
 							&& current.getNeighbors()[backTo] != null) {
+						current = current.getNeighbors()[backTo];
 						new Thread(pull).start();
 						m.incrementMoveCount();
-						current = current.getNeighbors()[backTo];
 						game.endPlayerTurn();
 					}
 					prevTime = System.currentTimeMillis();

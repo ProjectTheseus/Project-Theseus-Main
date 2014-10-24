@@ -258,14 +258,10 @@ public class MazeBuilder extends AbstractScreen {
 
 		// Draws text on screen
 		spriteBatch.begin();
-		if (m.getAtEnd()) {
-			CharSequence str = "You Won! You Finished the Maze in "
-					+ String.valueOf(m.getMoveCount()) + " moves!";
-			font.draw(spriteBatch, str, 160, 240);
-			str = "You took "
-					+ String.valueOf(m.getMoveCount()
-							- shortPath.shortPathLen()) + " extra moves.";
-			font.draw(spriteBatch, str, 220, 220);
+		if (game.getPlayer().isDead()) {
+			CharSequence str = "You Are Dead!";
+			font.draw(spriteBatch, str, 450, 340);
+			font.setScale(2);
 		} else {
 			CharSequence str = "Health: " + game.getPlayer().getCurrentHealth();
 			// + String.valueOf(m.getMoveCount());

@@ -22,7 +22,8 @@ public class Creature extends Entity {
 		super();
 	}
 
-	public Creature(Game game, Player player, MazeNode location, int maxH, int atk, int def, int spd) {
+	public Creature(Game game, Player player, MazeNode location, int maxH,
+			int atk, int def, int spd) {
 		super(location, maxH, atk, def, spd);
 		this.game = game;
 		this.player = player;
@@ -33,36 +34,49 @@ public class Creature extends Entity {
 	}
 
 	public boolean detectPlayer() {
-		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());
-		int ydiff = Math.abs(this.location.getY() - player.getCam().getCurrent().getY());
-		if (xdiff + ydiff == 1) {
-			return true;
+		int xdiff = this.location.getX() - player.getCam().getCurrent().getX();
+		int ydiff = this.location.getY() - player.getCam().getCurrent().getY();
+		int dir;
+		if (Math.abs(xdiff) + Math.abs(ydiff) == 1) {
+			if (ydiff == 1) {
+				dir = 0;
+			} else if (ydiff == -1) {
+				dir = 2;
+			} else if (xdiff == 1) {
+				dir = 3;
+			} else if (xdiff == -1){
+				dir = 1;
+			} else {
+				return false;
+			}
+			if (!location.getWalls()[dir]) {
+				return true;
+			}
 		}
 		return false;
 	}
 
 	public void determineBestAction() {
-		if(this.detectPlayer()){
+		if (this.detectPlayer()) {
 			this.attack(player);
-		}
-		else{
+		} else {
 			Random random = new Random();
 			int i = random.nextInt(4);
-			if(!this.location.getWalls()[i] && this.location.getNeighbors()[i] != null){
+			if (!this.location.getWalls()[i]
+					&& this.location.getNeighbors()[i] != null) {
 				this.setLocation(this.location.getNeighbors()[i]);
 				this.move(i);
-			}
-			else{
+			} else {
 				this.determineBestAction();
 			}
 		}
 	}
-	
+
 	public void move(int direction) {
 		cPull = new cPull(this, direction);
 		new Thread(cPull).start();
 	}
-	
+
 	@Override
 	public void die() {
 		box.transform.translate(100, 100, 100);

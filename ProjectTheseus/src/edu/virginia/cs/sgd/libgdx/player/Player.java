@@ -10,11 +10,13 @@ import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 public class Player extends Entity {
 
 	private int xp, nextLevelXp, level;
+	private boolean dead;
 	private Inventory inventory, quickInventory;
 	private MyCameraInputController cam;
 
 	public Player() {
 		super();
+		dead = false;
 		xp = 0;
 		nextLevelXp = 1000;
 		level = 1;
@@ -26,6 +28,7 @@ public class Player extends Entity {
 		// Sample base stats
 		super(cam.getCurrent(), 100, 15, 0, 1);
 		this.cam = cam;
+		dead = false;
 		xp = 0;
 		nextLevelXp = 1000;
 		level = 1;
@@ -50,7 +53,7 @@ public class Player extends Entity {
 
 	@Override
 	public void die() {
-
+		dead = true;
 	}
 
 	@Override
@@ -114,6 +117,10 @@ public class Player extends Entity {
 
 	public MyCameraInputController getCam() {
 		return cam;
+	}
+	
+	public boolean isDead() {
+		return dead;
 	}
 
 }
