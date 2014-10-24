@@ -24,6 +24,8 @@ public class Creature extends Entity {
 		super(location, maxH, atk, def, spd);
 		this.player = player;
 	}
+	
+	
 
 	public boolean detectPlayer() {
 		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());

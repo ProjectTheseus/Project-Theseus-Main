@@ -30,13 +30,13 @@ public class Player extends Entity {
 		// quickInventory = inventory.getQuick();
 	}
 
-	@Override
-	public void attack(Entity attackee) {
+	//@Override
+	//public void attack(Entity attackee) {
 		// TODO implement commented out section
 		// int dmg = currentWeapon.getDmg();
-		int dmg = 50;
-		attackee.takeDamage(dmg);
-	}
+		//int dmg = 50;
+		//attackee.takeDamage(dmg);
+	//}
 
 	@Override
 	public void takeDamage(int dmg) {
