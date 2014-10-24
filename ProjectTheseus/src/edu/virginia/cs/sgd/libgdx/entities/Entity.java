@@ -50,7 +50,6 @@ public class Entity {
 	}
 
 	public void takeDamage(int damage) {
-
 		int blocked = this.getTotalDefense() / 2;
 		int finalDamage = Math.min(damage - blocked, 0);
 		this.currentHealth -= finalDamage;
