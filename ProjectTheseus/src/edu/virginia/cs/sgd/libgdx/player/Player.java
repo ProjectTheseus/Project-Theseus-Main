@@ -1,5 +1,8 @@
 package edu.virginia.cs.sgd.libgdx.player;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
@@ -67,25 +70,45 @@ public class Player extends Entity {
 
 	}
 
-	public void level() {
-		nextLevelXp += 1000;
-		level++;
+	public void levelUpOption() {
 
-		maxHealth += 10;
-		defense += 10;
-		speed += 10;
-
-		if (xp >= nextLevelXp) {
-			level();
-		}
 	}
 
-	public void gainXP(int xp) {
-		this.xp += xp;
+	public void levelUp() {
+		// When the char got a level up , a window should pop up and let the
+		// player choose the level up option
+		JFrame frame = new JFrame("Level Up!");
+		Object[] possibilities = { "Speed", "Attack", "Defense" };
+		String s = (String) JOptionPane.showInputDialog(frame,
+				"Choose level up option", "Please choose a level up Option",
+				JOptionPane.PLAIN_MESSAGE, null, possibilities, "Speed");
+		if (s == "Speed") {
+			speed += 10;
+		}
+		if (s == "Defense")
+			defense += 10;
+		if (s == "Attack")
+			attack += 10;
+
+		level++;
+		xp = xp - nextLevelXp;
+
+		nextLevelXp = level * level * 1000;
+
+		maxHealth += 10;
+
+		if (xp >= nextLevelXp) {
+			levelUp();
+		}
+
+	}
+
+	public void gainXP(int xpadd) {
+		this.xp = this.xp + xpadd;
 
 		// determines if a player levels up
 		if (xp >= nextLevelXp)
-			level();
+			levelUp();
 
 	}
 
