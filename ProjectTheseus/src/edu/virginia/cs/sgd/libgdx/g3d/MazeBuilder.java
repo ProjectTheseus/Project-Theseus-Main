@@ -294,9 +294,13 @@ public class MazeBuilder extends AbstractScreen {
 	@Override
 	public void resume() {
 	}
-	
+
 	public Game getGame() {
 		return game;
+	}
+
+	public Maze getMaze() {
+		return m;
 	}
 
 }

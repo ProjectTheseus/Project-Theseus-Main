@@ -77,13 +77,16 @@ public class MyCameraInputController extends CameraInputController {
 	public boolean scrolled(int amount) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			for (Creature c : game.getCreatures()) {
-				if (c.getLocation() == current.getNeighbors()[faceTo])
+				if (c.getLocation() == current.getNeighbors()[faceTo]) {
+					c.takeDamage(game.getPlayer().calcDamage());
+				}
 			}
+			game.endPlayerTurn();
 		}
 		return true;
 	}
@@ -94,7 +97,7 @@ public class MyCameraInputController extends CameraInputController {
 	@Override
 	public boolean keyDown(int keycode) {
 		// input taken if the maze is unfinished
-		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
+		if (!m.getAtEnd() && current != null && game.isPlayerTurn() && !isBlocked()) {
 			switch (keycode) {
 
 			// Restart level
@@ -153,12 +156,14 @@ public class MyCameraInputController extends CameraInputController {
 						m.incrementMoveCount();
 						current = current.getNeighbors()[faceTo];
 						prevTime = System.currentTimeMillis();
+						game.endPlayerTurn();
 					} else if (current.equals(m.getEnd())
 							&& backTo == m.getStartSide()) {
 						new Thread(pull).start();
 						m.incrementMoveCount();
 						current = current.getNeighbors()[faceTo];
 						prevTime = System.currentTimeMillis();
+						game.endPlayerTurn();
 					}
 				}
 				break;
@@ -174,6 +179,7 @@ public class MyCameraInputController extends CameraInputController {
 						new Thread(pull).start();
 						m.incrementMoveCount();
 						current = current.getNeighbors()[backTo];
+						game.endPlayerTurn();
 					}
 					prevTime = System.currentTimeMillis();
 
@@ -385,6 +391,15 @@ public class MyCameraInputController extends CameraInputController {
 				}
 			}
 		}
+	}
+	
+	public boolean isBlocked() {
+		for (Creature c : game.getCreatures()) {
+			if (c.getLocation() == current.getNeighbors()[faceTo]) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

@@ -27,6 +27,7 @@ public class Game {
 	public Game() {
 		player = new Player();
 		creatures = new ArrayList<Creature>();
+		turnOrder = new ArrayList<Entity>();
 		playerTurn = true;
 		initialize(1);
 	}
@@ -36,6 +37,8 @@ public class Game {
 		this.cam = cam;
 		this.cam.setGame(this);
 		player = new Player(cam);
+		creatures = new ArrayList<Creature>();
+		turnOrder = new ArrayList<Entity>();
 		playerTurn = true;
 		initialize(1);
 	}
@@ -56,7 +59,7 @@ public class Game {
 	}
 
 	private void generateCreatures() {
-		Creature minotaur = new Creature();
+		Creature minotaur = new Creature(mb.getMaze().getEnd(), 100, 10, 5, 0);
 		creatures.add(minotaur);
 	}
 

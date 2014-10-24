@@ -35,6 +35,10 @@ public class Entity {
 	public void attack(Entity e) {
 
 	}
+	
+	public int calcDamage() {
+		return 0;
+	}
 
 	public void takeDamage(int damage) {
 		this.currentHealth -= damage;
