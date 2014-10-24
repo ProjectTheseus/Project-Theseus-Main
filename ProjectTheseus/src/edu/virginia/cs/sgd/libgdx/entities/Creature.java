@@ -12,6 +12,7 @@ public class Creature extends Entity {
 
 	private ModelInstance box;
 	private Player player;
+	private cPull cPull;
 
 	private final float moveLen = (float) MazeBuilder.spacing / 100;
 
@@ -19,13 +20,14 @@ public class Creature extends Entity {
 		super();
 	}
 
-	public Creature(MazeNode location, int maxH, int atk, int def, int spd) {
+	public Creature(Player player, MazeNode location, int maxH, int atk, int def, int spd) {
 		super(location, maxH, atk, def, spd);
+		this.player = player;
 	}
 
 	public boolean detectPlayer() {
-		int xdiff = Math.abs(this.location.getX() - player.location.getX());
-		int ydiff = Math.abs(this.location.getY() - player.location.getY());
+		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());
+		int ydiff = Math.abs(this.location.getY() - player.getCam().getCurrent().getY());
 		if (xdiff + ydiff == 1) {
 			return true;
 		}
@@ -38,10 +40,10 @@ public class Creature extends Entity {
 		}
 		else{
 			Random random = new Random();
-			int i = random.nextInt(3);
-			if(!this.location.getWalls()[i]){
+			int i = random.nextInt(4);
+			if(!this.location.getWalls()[i] && this.location.getNeighbors()[i] != null){
 				this.setLocation(this.location.getNeighbors()[i]);
-				this.move();
+				this.move(i);
 			}
 			else{
 				this.determineBestAction();
@@ -49,8 +51,9 @@ public class Creature extends Entity {
 		}
 	}
 	
-	public void move() {
-		
+	public void move(int direction) {
+		cPull = new cPull(this, direction);
+		new Thread(cPull).start();
 	}
 	
 	@Override

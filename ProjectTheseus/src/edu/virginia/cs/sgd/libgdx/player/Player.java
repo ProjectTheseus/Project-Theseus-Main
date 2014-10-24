@@ -97,5 +97,9 @@ public class Player extends Entity {
 			level();
 
 	}
+	
+	public MyCameraInputController getCam() {
+		return cam;
+	}
 
 }

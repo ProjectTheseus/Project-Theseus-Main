@@ -65,6 +65,8 @@ public class MazeBuilder extends AbstractScreen {
 	@Override
 	public void show() {
 		super.show();
+		
+		ModelInstance minotaur = new ModelInstance(new Model());
 
 		x = Game.getLevel() + 2;
 		y = Game.getLevel() + 2;
@@ -216,9 +218,10 @@ public class MazeBuilder extends AbstractScreen {
 								Usage.Position | Usage.Normal
 										| Usage.TextureCoordinates));
 						count++;
-						instances.add(new ModelInstance(models.get(count), (m
+						minotaur = new ModelInstance(models.get(count), (m
 								.getEnd().getX() * spacing),
-								(m.getEnd().getY() * spacing), z));
+								(m.getEnd().getY() * spacing), z);
+						instances.add(minotaur);
 					}
 				}
 			}
@@ -228,7 +231,7 @@ public class MazeBuilder extends AbstractScreen {
 		Gdx.input.setInputProcessor(camController);
 
 		game = new Game(camController, this);
-		game.getCreatures().get(0).setBox(instances.get(count));
+		game.getCreatures().get(0).setBox(minotaur);
 	}
 
 	/**
@@ -264,7 +267,7 @@ public class MazeBuilder extends AbstractScreen {
 							- shortPath.shortPathLen()) + " extra moves.";
 			font.draw(spriteBatch, str, 220, 220);
 		} else {
-			CharSequence str = "Points: All of them";
+			CharSequence str = "Health: " + game.getPlayer().getCurrentHealth();
 			// + String.valueOf(m.getMoveCount());
 			font.draw(spriteBatch, str, 20, 20);
 			// str = "Moves Needed: " +
