@@ -28,6 +28,10 @@ public class Creature extends Entity {
 		this.player = player;
 	}
 
+	public String toString() {
+		return "Creature";
+	}
+
 	public boolean detectPlayer() {
 		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());
 		int ydiff = Math.abs(this.location.getY() - player.getCam().getCurrent().getY());

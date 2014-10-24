@@ -40,23 +40,28 @@ public class Entity {
 
 		int damage = this.getTotalAttack();
 		// double accuracy = this.weapon.getAccuracy();
-		double accuracy = .5; // a percent
+		double accuracy = 1; // a percent
 
 		double hit = Math.random();
 
 		if (hit <= accuracy) {
+			System.out.println(this + " dealing: " + damage + " damage");
 			e.takeDamage(damage);
 		}
 	}
 
 	public void takeDamage(int damage) {
 		int blocked = this.getTotalDefense() / 2;
-		int finalDamage = damage - blocked;
+		int finalDamage = Math.max(damage - blocked, 0);
 		this.currentHealth -= finalDamage;
 		if (this.currentHealth <= 0) {
 			this.currentHealth = 0;
 			this.die();
 		}
+		System.out.println(this + " takes: " + finalDamage + " out of "
+				+ damage);
+		// System.out.println("(Blocked: " + blocked + ")");
+		System.out.println(this + "'s health: " + currentHealth + "\r\n");
 	}
 
 	public void heal(int healAmount) {
