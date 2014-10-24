@@ -19,6 +19,7 @@ public class Entity {
 	}
 
 	public Entity(MazeNode location, int maxH, int atk, int def, int spd) {
+
 		this.location = location;
 		this.maxHealth = maxH;
 		this.currentHealth = maxH;
@@ -34,15 +35,31 @@ public class Entity {
 
 	public void attack(Entity e) {
 
-	}
-	
-	public int calcDamage() {
-		return 0;
+		// if something is in front of you, can attack
+		// take percent hit
+		// deal damage
+		// static method to find best move
+		// return accuracy of move
+		// return damage of best move
+
+		int damage = this.getTotalAttack();
+		// double accuracy = this.weapon.getAccuracy();
+		double accuracy = .5; // a percent
+
+		double hit = Math.random();
+
+		if (hit <= accuracy) {
+			e.takeDamage(damage);
+		}
 	}
 
 	public void takeDamage(int damage) {
-		this.currentHealth -= damage;
+
+		int blocked = this.getTotalDefense();
+		int finalDamage = Math.min(damage - blocked, 0);
+		this.currentHealth -= finalDamage;
 		if (this.currentHealth <= 0) {
+			this.currentHealth = 0;
 			this.die();
 		}
 	}
@@ -62,6 +79,14 @@ public class Entity {
 
 	}
 
+	public int getTotalAttack() {
+		return attack; // + weapon.getAttack();
+	}
+
+	public int getTotalDefense() {
+		return defense; // + armor.getDefense();
+	}
+
 	public int getMaxHealth() {
 		return maxHealth;
 	}
@@ -76,6 +101,14 @@ public class Entity {
 
 	public void setCurrentHealth(int currentHealth) {
 		this.currentHealth = currentHealth;
+	}
+
+	public int getAttack() {
+		return attack;
+	}
+
+	public void setAttack(int attack) {
+		this.attack = attack;
 	}
 
 	public int getDefense() {
@@ -101,11 +134,11 @@ public class Entity {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	
+
 	public MazeNode getLocation() {
 		return location;
 	}
-	
+
 	public void setLocation(MazeNode location) {
 		this.location = location;
 	}

@@ -83,7 +83,7 @@ public class MyCameraInputController extends CameraInputController {
 		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			for (Creature c : game.getCreatures()) {
 				if (c.getLocation() == current.getNeighbors()[faceTo]) {
-					c.takeDamage(game.getPlayer().calcDamage());
+					game.getPlayer().attack(c);;
 				}
 			}
 			game.endPlayerTurn();
