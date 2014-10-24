@@ -1,5 +1,7 @@
 package edu.virginia.cs.sgd.libgdx.entities;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
@@ -28,7 +30,20 @@ public class Creature extends Entity {
 	}
 
 	public void determineBestAction() {
-		// call the best method
+		if(this.detectPlayer()){
+			this.attack(player);
+		}
+		else{
+			Random random = new Random();
+			int i = random.nextInt(3);
+			if(!this.location.getWalls()[i]){
+				this.setLocation(this.location.getNeighbors()[i]);
+				this.move();
+			}
+			else{
+				this.determineBestAction();
+			}
+		}
 	}
 	
 	public void move() {
