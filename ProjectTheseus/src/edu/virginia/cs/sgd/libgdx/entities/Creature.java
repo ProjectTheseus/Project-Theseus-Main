@@ -34,23 +34,27 @@ public class Creature extends Entity {
 	}
 
 	public boolean detectPlayer() {
-		int xdiff = this.location.getX() - player.getCam().getCurrent().getX();
-		int ydiff = this.location.getY() - player.getCam().getCurrent().getY();
-		int dir;
-		if (Math.abs(xdiff) + Math.abs(ydiff) == 1) {
-			if (ydiff == 1) {
-				dir = 0;
-			} else if (ydiff == -1) {
-				dir = 2;
-			} else if (xdiff == 1) {
-				dir = 3;
-			} else if (xdiff == -1){
-				dir = 1;
-			} else {
-				return false;
-			}
-			if (!location.getWalls()[dir]) {
-				return true;
+		if (player.getCam().getCurrent() != null) {
+			int xdiff = this.location.getX()
+					- player.getCam().getCurrent().getX();
+			int ydiff = this.location.getY()
+					- player.getCam().getCurrent().getY();
+			int dir;
+			if (Math.abs(xdiff) + Math.abs(ydiff) == 1) {
+				if (ydiff == 1) {
+					dir = 0;
+				} else if (ydiff == -1) {
+					dir = 2;
+				} else if (xdiff == 1) {
+					dir = 3;
+				} else if (xdiff == -1) {
+					dir = 1;
+				} else {
+					return false;
+				}
+				if (!location.getWalls()[dir]) {
+					return true;
+				}
 			}
 		}
 		return false;

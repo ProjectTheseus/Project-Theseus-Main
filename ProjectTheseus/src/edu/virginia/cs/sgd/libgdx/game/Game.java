@@ -60,7 +60,7 @@ public class Game {
 
 	private void generateCreatures() {
 		Creature minotaur = new Creature(this, player, mb.getMaze().getEnd(),
-				100, 10, 0, 0);
+				100, 10, 5, 0);
 		creatures.add(minotaur);
 	}
 
