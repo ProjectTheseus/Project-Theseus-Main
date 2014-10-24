@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 
+import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.player.Player;
 
@@ -11,6 +12,8 @@ public class Creature extends Entity {
 
 	private ModelInstance box;
 	private Player player;
+
+	private final float moveLen = (float) MazeBuilder.spacing / 100;
 
 	public Creature() {
 		super();
@@ -27,6 +30,10 @@ public class Creature extends Entity {
 			return true;
 		}
 		return false;
+	}
+
+	public void move() {
+
 	}
 
 	public void determineBestAction() {
@@ -49,6 +56,11 @@ public class Creature extends Entity {
 	public void move() {
 		
 	}
+	
+	@Override
+	public void die() {
+		box.transform.translate(100, 100, 100);
+	}
 
 	public ModelInstance getBox() {
 		return box;
@@ -58,4 +70,50 @@ public class Creature extends Entity {
 		this.box = box;
 	}
 
+	public void moveC(int direction) {
+		switch (direction) {
+
+		case 0:
+			box.transform.translate(0, -1 * moveLen, 0);
+			break;
+
+		case 1:
+			box.transform.translate(moveLen, 0, 0);
+			break;
+
+		case 2:
+			box.transform.translate(0, moveLen, 0);
+			break;
+
+		case 3:
+			box.transform.translate(-1 * moveLen, 0, 0);
+			break;
+
+		default:
+			break;
+
+		}
+	}
+
+	public class cPull implements Runnable {
+		Creature c;
+		int direction;
+
+		public cPull(Creature c, int direction) {
+			this.c = c;
+			this.direction = direction;
+		}
+
+		@Override
+		public void run() {
+			for (int i = 0; i < 100; i++) {
+				c.moveC(direction);
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
