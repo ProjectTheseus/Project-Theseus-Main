@@ -7,6 +7,7 @@ package edu.virginia.cs.sgd.libgdx.game;
 import java.util.ArrayList;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
+import edu.virginia.cs.sgd.libgdx.entities.Creature;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
@@ -16,7 +17,7 @@ public class Game {
 	private MazeBuilder mb;
 	private MyCameraInputController cam;
 	private Player player;
-	private ArrayList<Entity> creatures;
+	private ArrayList<Creature> creatures;
 	private ArrayList<Inventory> treasure;
 	private ArrayList<Entity> turnOrder;
 	private boolean playerTurn;
@@ -25,7 +26,7 @@ public class Game {
 
 	public Game() {
 		player = new Player();
-		creatures = new ArrayList<Entity>();
+		creatures = new ArrayList<Creature>();
 		playerTurn = true;
 		initialize(1);
 	}
@@ -33,27 +34,30 @@ public class Game {
 	public Game(MyCameraInputController cam, MazeBuilder mb) {
 		this.mb = mb;
 		this.cam = cam;
+		this.cam.setGame(this);
 		player = new Player(cam);
 		playerTurn = true;
 		initialize(1);
 	}
 
 	public void initialize(int level) {
-		creatures = generateCreatures();
-		treasure = generateTreasure();
-		turnOrder = generateTurnOrder();
+		generateCreatures();
+		generateTreasure();
+		generateTurnOrder();
 	}
 
-	private ArrayList<Entity> generateTurnOrder() {
-		return null;
+	private void generateTurnOrder() {
+		turnOrder.add(player);
+		turnOrder.add(creatures.get(0));
 	}
 
-	private ArrayList<Inventory> generateTreasure() {
-		return null;
+	private void generateTreasure() {
+
 	}
 
-	private ArrayList<Entity> generateCreatures() {
-		return null;
+	private void generateCreatures() {
+		Creature minotaur = new Creature();
+		creatures.add(minotaur);
 	}
 
 	public void nextLevel() {
@@ -79,7 +83,7 @@ public class Game {
 	/**
 	 * @return the creatures
 	 */
-	public ArrayList<Entity> getCreatures() {
+	public ArrayList<Creature> getCreatures() {
 		return creatures;
 	}
 
@@ -94,8 +98,12 @@ public class Game {
 	 * @param playerTurn
 	 *            the playerTurn to set
 	 */
-	public void setPlayerTurn(boolean playerTurn) {
-		this.playerTurn = playerTurn;
+	public void endPlayerTurn() {
+		playerTurn = false;
+		if (!playerTurn) {
+			creatures.get(0).determineBestAction();
+			playerTurn = true;
+		}
 	}
 
 	/**

@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 
+import edu.virginia.cs.sgd.libgdx.entities.Creature;
 import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
@@ -21,6 +22,7 @@ import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
  *         moves/rotates camera
  */
 public class MyCameraInputController extends CameraInputController {
+	private Game game; // holds game object;
 	private MazeBuilder mb; // holds MazeBuilder object
 	private Maze m; // holds Maze object
 	private MazeNode current; // holds current MazeNode
@@ -75,6 +77,16 @@ public class MyCameraInputController extends CameraInputController {
 	public boolean scrolled(int amount) {
 		return true;
 	}
+	
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
+			for (Creature c : game.getCreatures()) {
+				if (c.getLocation() == current.getNeighbors()[faceTo])
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * Deals with keyboard input
@@ -82,7 +94,7 @@ public class MyCameraInputController extends CameraInputController {
 	@Override
 	public boolean keyDown(int keycode) {
 		// input taken if the maze is unfinished
-		if (!m.getAtEnd() && current != null) {
+		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			switch (keycode) {
 
 			// Restart level
@@ -141,7 +153,8 @@ public class MyCameraInputController extends CameraInputController {
 						m.incrementMoveCount();
 						current = current.getNeighbors()[faceTo];
 						prevTime = System.currentTimeMillis();
-					} else if (current.equals(m.getEnd()) && backTo == m.getStartSide()) {
+					} else if (current.equals(m.getEnd())
+							&& backTo == m.getStartSide()) {
 						new Thread(pull).start();
 						m.incrementMoveCount();
 						current = current.getNeighbors()[faceTo];
@@ -290,7 +303,6 @@ public class MyCameraInputController extends CameraInputController {
 				try {
 					Thread.sleep(5);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -320,7 +332,6 @@ public class MyCameraInputController extends CameraInputController {
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -330,7 +341,6 @@ public class MyCameraInputController extends CameraInputController {
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -360,7 +370,6 @@ public class MyCameraInputController extends CameraInputController {
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -371,7 +380,6 @@ public class MyCameraInputController extends CameraInputController {
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -397,5 +405,9 @@ public class MyCameraInputController extends CameraInputController {
 
 	public void setBackTo(int dir) {
 		backTo = dir;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

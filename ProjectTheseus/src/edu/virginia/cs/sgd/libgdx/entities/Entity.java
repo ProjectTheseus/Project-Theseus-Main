@@ -97,6 +97,14 @@ public class Entity {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	
+	public MazeNode getLocation() {
+		return location;
+	}
+	
+	public void setLocation(MazeNode location) {
+		this.location = location;
+	}
 
 	// /**
 	// * @return the weapon
