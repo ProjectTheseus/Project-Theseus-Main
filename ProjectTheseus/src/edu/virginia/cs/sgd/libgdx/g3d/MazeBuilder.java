@@ -66,8 +66,8 @@ public class MazeBuilder extends AbstractScreen {
 	public void show() {
 		super.show();
 
-		x = game.getLevel() + 4;
-		y = game.getLevel() + 4;
+		x = Game.getLevel() + 2;
+		y = Game.getLevel() + 2;
 
 		// generates Maze with correct dimensions
 		m = new Maze(x, y);
@@ -227,7 +227,7 @@ public class MazeBuilder extends AbstractScreen {
 		camController = new MyCameraInputController(cam, m, this);
 		Gdx.input.setInputProcessor(camController);
 
-		game = new Game(camController);
+		game = new Game(camController, this);
 	}
 
 	/**
@@ -293,6 +293,10 @@ public class MazeBuilder extends AbstractScreen {
 
 	@Override
 	public void resume() {
+	}
+	
+	public Game getGame() {
+		return game;
 	}
 
 }

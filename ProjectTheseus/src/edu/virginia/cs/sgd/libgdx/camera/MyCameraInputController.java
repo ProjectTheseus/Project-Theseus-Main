@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
+import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
 
 /**
@@ -92,6 +93,7 @@ public class MyCameraInputController extends CameraInputController {
 			// Restart game
 			case Input.Keys.ESCAPE:
 				mb.changeScreen(SplashScreen.class);
+				Game.setLevel(1);
 				break;
 
 			// Left arrow or A keys turn camera left
@@ -139,8 +141,12 @@ public class MyCameraInputController extends CameraInputController {
 						m.incrementMoveCount();
 						current = current.getNeighbors()[faceTo];
 						prevTime = System.currentTimeMillis();
+					} else if (current.equals(m.getEnd()) && backTo == m.getStartSide()) {
+						new Thread(pull).start();
+						m.incrementMoveCount();
+						current = current.getNeighbors()[faceTo];
+						prevTime = System.currentTimeMillis();
 					}
-
 				}
 				break;
 
@@ -167,11 +173,8 @@ public class MyCameraInputController extends CameraInputController {
 			}
 			super.camera.update();
 			super.update();
-			if (current.equals(m.getEnd())) {
-				// current = null;
-				// ArrayList<Integer> dirs = new ArrayList<Integer>(0);
-				// cThread = new CamThread(this, dirs, firstMove, false);
-				// new Thread(cThread).start();
+			if (current == null) {
+				mb.getGame().nextLevel();
 			}
 			super.camera.update();
 			super.update();

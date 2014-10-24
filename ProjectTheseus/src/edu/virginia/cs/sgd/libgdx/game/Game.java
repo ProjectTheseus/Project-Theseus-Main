@@ -20,7 +20,8 @@ public class Game {
 	private ArrayList<Inventory> treasure;
 	private ArrayList<Entity> turnOrder;
 	private boolean playerTurn;
-	private int level;
+
+	private static int level = 1;
 
 	public Game() {
 		player = new Player();
@@ -83,13 +84,6 @@ public class Game {
 	}
 
 	/**
-	 * @return the level
-	 */
-	public int getLevel() {
-		return level;
-	}
-
-	/**
 	 * @return the playerTurn
 	 */
 	public boolean isPlayerTurn() {
@@ -102,6 +96,21 @@ public class Game {
 	 */
 	public void setPlayerTurn(boolean playerTurn) {
 		this.playerTurn = playerTurn;
+	}
+
+	/**
+	 * @return the level
+	 */
+	public static int getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param l
+	 *            the level to be set
+	 */
+	public static void setLevel(int l) {
+		level = l;
 	}
 
 }
