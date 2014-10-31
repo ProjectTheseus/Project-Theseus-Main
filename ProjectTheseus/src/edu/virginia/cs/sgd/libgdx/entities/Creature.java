@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.game.Game;
+import edu.virginia.cs.sgd.libgdx.path.Path;
 import edu.virginia.cs.sgd.libgdx.player.Player;
 
 public class Creature extends Entity {
@@ -40,12 +41,28 @@ public class Creature extends Entity {
 		}
 		return false;
 	}
+	
+	public boolean detectPlayerRange() {
+		Path p = new Path(game.getMaze(), this.location, player.location);
+		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());
+		int ydiff = Math.abs(this.location.getY() - player.getCam().getCurrent().getY());
+		if ((xdiff != 0 || ydiff != 0) && xdiff + ydiff <= this.getPerception() && p.shortPathLen() <= this.getPerception()) {
+			return true;
+		}
+		return false;
+	}
 
 	public void determineBestAction() {
 		if(this.detectPlayer()){
 			this.attack(player);
 		}
-		else{
+		else if (this.detectPlayerRange()) {
+			Path p = new Path(game.getMaze(), this.location, player.location);
+			this.move(p.getDirArray().get(0)); //moves the creature one space towards the player
+			
+			
+		}
+		else {
 			Random random = new Random();
 			int i = random.nextInt(4);
 			if(!this.location.getWalls()[i] && this.location.getNeighbors()[i] != null){
