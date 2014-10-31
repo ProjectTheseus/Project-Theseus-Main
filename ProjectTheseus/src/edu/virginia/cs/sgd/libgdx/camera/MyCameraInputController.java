@@ -13,6 +13,7 @@ import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.game.Game;
+import edu.virginia.cs.sgd.libgdx.inventory.InventoryScreen;
 import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
 
 /**
@@ -99,6 +100,11 @@ public class MyCameraInputController extends CameraInputController {
 		// input taken if the maze is unfinished
 		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			switch (keycode) {
+			
+			// Open inventory
+			case Input.Keys.I:
+				mb.changeScreen(InventoryScreen.class);
+				break;
 
 			// Restart level
 			case Input.Keys.BACKSPACE:
