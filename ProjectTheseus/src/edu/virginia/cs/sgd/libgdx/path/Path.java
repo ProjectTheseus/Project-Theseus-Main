@@ -205,4 +205,16 @@ public class Path {
 	public ArrayList<Integer> getDirArray() {
 		return dirArray;
 	}
+	
+	public int getNumTurns() {
+		int turns = 0;
+		int dir = -1; 
+		for (int i : dirArray) {
+			if (i != dir) {
+				turns ++;
+				dir = i;
+			}
+		}
+		return turns;
+	}
 }
