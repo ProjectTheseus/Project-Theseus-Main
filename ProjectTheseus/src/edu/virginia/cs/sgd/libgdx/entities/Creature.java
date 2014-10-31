@@ -46,7 +46,7 @@ public class Creature extends Entity {
 		Path p = new Path(game.getMaze(), this.location, player.location);
 		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());
 		int ydiff = Math.abs(this.location.getY() - player.getCam().getCurrent().getY());
-		if ((xdiff != 0 || ydiff != 0) && xdiff + ydiff <= this.getPerception() && p.shortPathLen() <= this.getPerception()) {
+		if (p.shortPathLen() <= this.perception) {
 			return true;
 		}
 		return false;
