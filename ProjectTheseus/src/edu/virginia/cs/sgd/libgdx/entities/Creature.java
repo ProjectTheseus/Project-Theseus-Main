@@ -22,10 +22,10 @@ public class Creature extends Entity {
 		super();
 	}
 
-	public Creature(Game game, Player player, MazeNode location, int maxH, int atk, int def, int spd) {
+	public Creature(Game game, MazeNode location, int maxH, int atk, int def, int spd) {
 		super(location, maxH, atk, def, spd);
 		this.game = game;
-		this.player = player;
+		this.player = game.getPlayer();
 	}
 
 	public String toString() {
