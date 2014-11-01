@@ -208,11 +208,13 @@ public class Path {
 	
 	public int getNumTurns() {
 		int turns = 0;
-		int dir = -1; 
-		for (int i : dirArray) {
-			if (i != dir) {
-				turns ++;
-				dir = i;
+		if (dirArray.size() > 0) {
+			int dir = dirArray.get(0);
+			for (int d : dirArray) {
+				if (d != dir) {
+					turns ++;
+					dir = d;
+				}
 			}
 		}
 		return turns;
