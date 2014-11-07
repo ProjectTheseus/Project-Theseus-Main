@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.entities.Creature;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
+import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 import edu.virginia.cs.sgd.libgdx.player.Player;
@@ -59,8 +60,8 @@ public class Game {
 	}
 
 	private void generateCreatures() {
-		Creature minotaur = new Creature(this, player, mb.getMaze().getEnd(),
-				100, 10, 5, 0);
+		Creature minotaur = new Creature(this, mb.getMaze().getEnd(),
+				100, 10, 0, 0);
 		creatures.add(minotaur);
 	}
 
@@ -98,6 +99,10 @@ public class Game {
 			creatures.remove(c);
 		}
 		return creatures;
+	}
+	
+	public Maze getMaze() {
+		return this.mb.getMaze();
 	}
 
 	/**

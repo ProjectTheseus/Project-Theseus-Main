@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.game.Game;
+import edu.virginia.cs.sgd.libgdx.path.Path;
 import edu.virginia.cs.sgd.libgdx.player.Player;
 
 public class Creature extends Entity {
@@ -22,16 +23,17 @@ public class Creature extends Entity {
 		super();
 	}
 
-	public Creature(Game game, Player player, MazeNode location, int maxH,
-			int atk, int def, int spd) {
+	public Creature(Game game, MazeNode location, int maxH, int atk, int def, int spd) {
 		super(location, maxH, atk, def, spd);
 		this.game = game;
-		this.player = player;
+		this.player = game.getPlayer();
 	}
 
 	public String toString() {
 		return "Creature";
 	}
+	
+	
 
 	public boolean detectPlayer() {
 		if (player.getCam().getCurrent() != null) {
@@ -59,11 +61,30 @@ public class Creature extends Entity {
 		}
 		return false;
 	}
+	
+	public boolean detectPlayerRange() {
+		Path p = new Path(game.getMaze(), this.location, player.location);
+		int xdiff = Math.abs(this.location.getX() - player.getCam().getCurrent().getX());
+		int ydiff = Math.abs(this.location.getY() - player.getCam().getCurrent().getY());
+		if (p.shortPathLen() <= this.perception) {
+			return true;
+		}
+		return false;
+	}
 
 	public void determineBestAction() {
 		if (this.detectPlayer()) {
 			this.attack(player);
-		} else {
+		}
+		else if (this.detectPlayerRange()) {
+			Path p = new Path(game.getMaze(), this.location, player.location);
+			if(p.getNumTurns() < 3) {
+				this.setLocation(this.location.getNeighbors()[p.getDirArray().get(0)]);
+				this.move(p.getDirArray().get(0)); //moves the creature one space towards the player
+			}
+			
+		}
+		else {
 			Random random = new Random();
 			int i = random.nextInt(4);
 			if (!this.location.getWalls()[i]
@@ -75,7 +96,7 @@ public class Creature extends Entity {
 			}
 		}
 	}
-
+	
 	public void move(int direction) {
 		cPull = new cPull(this, direction);
 		new Thread(cPull).start();
@@ -84,6 +105,7 @@ public class Creature extends Entity {
 	@Override
 	public void die() {
 		box.transform.translate(100, 100, 100);
+		player.gainXP(10);
 	}
 
 	public ModelInstance getBox() {
