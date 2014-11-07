@@ -26,7 +26,7 @@ public class Entity {
 		this.attack = atk;
 		this.defense = def;
 		this.speed = spd;
-		this.perception = 0;
+		this.perception = 5;
 	}
 
 	public void attack(Entity e) {

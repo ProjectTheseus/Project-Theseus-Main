@@ -60,8 +60,9 @@ public class Creature extends Entity {
 		}
 		else if (this.detectPlayerRange()) {
 			Path p = new Path(game.getMaze(), this.location, player.location);
-			if(p.getNumTurns() < 2) {
-			this.move(p.getDirArray().get(0)); //moves the creature one space towards the player
+			if(p.getNumTurns() < 3) {
+				this.setLocation(this.location.getNeighbors()[p.getDirArray().get(0)]);
+				this.move(p.getDirArray().get(0)); //moves the creature one space towards the player
 			}
 			
 		}
@@ -77,6 +78,10 @@ public class Creature extends Entity {
 			}
 		}
 	}
+	
+	
+	
+	
 	
 	public void move(int direction) {
 		cPull = new cPull(this, direction);
