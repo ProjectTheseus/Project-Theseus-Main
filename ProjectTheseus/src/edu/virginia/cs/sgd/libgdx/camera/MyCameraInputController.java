@@ -82,7 +82,7 @@ public class MyCameraInputController extends CameraInputController {
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			for (Creature c : game.getCreatures()) {
-				if (c.getLocation() == current.getNeighbors()[faceTo]) {
+				if (c.getLocation().equals(current.getNeighbors()[faceTo])) {
 					game.getPlayer().attack(c);;
 				}
 			}

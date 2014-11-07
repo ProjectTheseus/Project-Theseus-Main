@@ -21,7 +21,7 @@ public class Player extends Entity {
 
 	public Player(MyCameraInputController cam) {
 		// Sample base stats
-		super(cam.getCurrent(), 100, 1, 0, 1);
+		super(cam.getCurrent(), 100, 15, 0, 1);
 		this.cam = cam;
 		xp = 0;
 		nextLevelXp = 1000;
@@ -30,23 +30,14 @@ public class Player extends Entity {
 		// quickInventory = inventory.getQuick();
 	}
 
-	//@Override
-	//public void attack(Entity attackee) {
-		// TODO implement commented out section
-		// int dmg = currentWeapon.getDmg();
-		//int dmg = 50;
-		//attackee.takeDamage(dmg);
-	//}
+	public String toString() {
+		return "Player";
+	}
 
 	@Override
 	public void takeDamage(int dmg) {
-		// TODO need to add currentArmour into account
-		dmg = dmg - defense;
-		if (dmg >= 0)
-			currentHealth -= dmg;
-
-		if (currentHealth <= 0)
-			die();
+		// Armor taken care of in super class
+		super.takeDamage(dmg);
 	}
 
 	@Override
@@ -97,7 +88,7 @@ public class Player extends Entity {
 			level();
 
 	}
-	
+
 	public MyCameraInputController getCam() {
 		return cam;
 	}
