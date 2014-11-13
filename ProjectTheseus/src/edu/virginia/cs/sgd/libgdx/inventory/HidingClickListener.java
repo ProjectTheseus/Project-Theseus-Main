@@ -16,7 +16,7 @@ public class HidingClickListener extends ClickListener {
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
-		invScreen.restoreScreen();
+		actor.setVisible(false);
 	}
 
 }

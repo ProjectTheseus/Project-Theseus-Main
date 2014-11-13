@@ -17,7 +17,7 @@ import edu.virginia.cs.sgd.libgdx.player.Player;
 public class Game {
 	private MazeBuilder mb;
 	private MyCameraInputController cam;
-	private Player player;
+	private static Player player;
 	private ArrayList<Creature> creatures;
 	private ArrayList<Inventory> treasure;
 	private ArrayList<Entity> turnOrder;
@@ -26,7 +26,9 @@ public class Game {
 	private static int level = 1;
 
 	public Game() {
-		player = new Player();
+		if (player == null) {
+			player = new Player();
+		}
 		creatures = new ArrayList<Creature>();
 		turnOrder = new ArrayList<Entity>();
 		playerTurn = true;
@@ -37,7 +39,12 @@ public class Game {
 		this.mb = mb;
 		this.cam = cam;
 		this.cam.setGame(this);
-		player = new Player(cam);
+		if (player == null) {
+			player = new Player(cam);
+		} else {
+			player.setLocation(mb.getMaze().getStart());
+			player.setCam(cam);
+		}
 		creatures = new ArrayList<Creature>();
 		turnOrder = new ArrayList<Entity>();
 		playerTurn = true;

@@ -112,11 +112,9 @@ public class MyCameraInputController extends CameraInputController {
 			case Input.Keys.I:
 				if (!invOpen) {
 					invOpen = true;
-					mb.saveScreen();
 					mb.changeScreen(InventoryScreen.class);
 				} else {
 					invOpen = false;
-					mb.restoreScreen();
 				}
 				break;
 
