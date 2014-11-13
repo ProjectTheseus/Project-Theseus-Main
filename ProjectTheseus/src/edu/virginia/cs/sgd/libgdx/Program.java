@@ -3,6 +3,8 @@ package edu.virginia.cs.sgd.libgdx;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import edu.virginia.cs.sgd.libgdx.input.Input;
 import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
@@ -82,6 +84,8 @@ public class Program extends Game implements ApplicationListener {
 		m.load("Minotaur", "resources/Minotaur.jpg", Texture.class);
 		m.load("SplashScreen", "resources/splash.jpg", Texture.class);
 		m.load("WhiteOut", "resources/white.jpg", Texture.class);
+		m.load("uiskin", "resources/skins/uiskin.json", Skin.class);
+		m.load("icons", "resources/icons/icons.atlas", TextureAtlas.class);
 
 		m.finishLoading();
 

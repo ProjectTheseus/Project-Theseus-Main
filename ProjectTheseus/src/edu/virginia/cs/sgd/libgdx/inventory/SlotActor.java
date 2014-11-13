@@ -28,7 +28,7 @@ public class SlotActor extends ImageButton implements SlotListener {
 	}
 
 	private static ImageButtonStyle createStyle(Skin skin, Slot slot) {
-		TextureAtlas icons = (TextureAtlas) sam.get("");
+		TextureAtlas icons = (TextureAtlas) sam.get("icons");
 		TextureRegion image;
 		if (slot.getItem() != null) {
 			image = icons.findRegion(slot.getItem().getTextureRegion());

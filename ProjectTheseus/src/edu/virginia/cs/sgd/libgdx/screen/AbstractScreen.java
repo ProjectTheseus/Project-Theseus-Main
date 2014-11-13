@@ -22,7 +22,7 @@ public abstract class AbstractScreen implements Screen, InputListener {
 	protected Skin skin;
 
 	private Class<? extends AbstractScreen> newScreen;
-	private Class<? extends AbstractScreen> lastScreen;
+	private static Class<? extends AbstractScreen> lastScreen;
 	private Input in;
 	private MyInputProcessor inP;
 
@@ -111,7 +111,7 @@ public abstract class AbstractScreen implements Screen, InputListener {
 	}
 	
 	public void saveScreen() {
-		this.lastScreen = newScreen;
+		lastScreen = newScreen;
 	}
 	
 	public void restoreScreen() {

@@ -33,6 +33,7 @@ public class MyCameraInputController extends CameraInputController {
 	// int looking; // int value pertaining to whether the camera is facing
 	// up, forward, or down
 	private boolean firstMove; // boolean flag, true if it is the firstMove
+	private boolean invOpen;
 	private CamPivot pivot; // holds CamPivot
 	// private CamPoint pointer; // holds CamPoint
 	private CamPull pull; // holds CamPull
@@ -60,6 +61,7 @@ public class MyCameraInputController extends CameraInputController {
 		// this.looking = 1;
 		this.current = m.getStart();
 		firstMove = true;
+		invOpen = false;
 		prevTime = System.currentTimeMillis() - 500;
 	}
 
@@ -108,7 +110,14 @@ public class MyCameraInputController extends CameraInputController {
 			
 			// Open inventory
 			case Input.Keys.I:
-				mb.changeScreen(InventoryScreen.class);
+				if (!invOpen) {
+					invOpen = true;
+					mb.saveScreen();
+					mb.changeScreen(InventoryScreen.class);
+				} else {
+					invOpen = false;
+					mb.restoreScreen();
+				}
 				break;
 
 			// Restart level

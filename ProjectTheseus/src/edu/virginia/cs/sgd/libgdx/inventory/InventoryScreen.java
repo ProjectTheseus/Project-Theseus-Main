@@ -23,10 +23,10 @@ public class InventoryScreen extends AbstractScreen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		Skin skin = (Skin) sam.get("");
+		Skin skin = (Skin) sam.get("uiskin");
 
 		DragAndDrop dragAndDrop = new DragAndDrop();
-		inventoryActor = new InventoryActor(new Inventory(), dragAndDrop, skin);
+		inventoryActor = new InventoryActor(this, new Inventory(), dragAndDrop, skin);
 		stage.addActor(inventoryActor);
 	}
 
@@ -45,7 +45,7 @@ public class InventoryScreen extends AbstractScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		// stage.getViewport().update(width, height, true);
+		stage.setViewport(width, height, true);
 	}
 
 	@Override
