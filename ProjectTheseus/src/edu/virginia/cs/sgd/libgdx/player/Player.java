@@ -119,6 +119,10 @@ public class Player extends Entity {
 		return cam;
 	}
 	
+	public void setCam(MyCameraInputController cam) {
+		this.cam = cam;
+	}
+	
 	public boolean isDead() {
 		return dead;
 	}
