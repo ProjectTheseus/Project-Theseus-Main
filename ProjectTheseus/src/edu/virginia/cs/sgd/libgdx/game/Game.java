@@ -131,7 +131,9 @@ public class Game {
 		playerTurn = false;
 		if (!playerTurn) {
 			if (this.getCreatures().size() > 0) {
-				creatures.get(0).determineBestAction();
+				for (Creature creature : creatures) {
+					creature.determineBestAction();
+				}
 			}
 			playerTurn = true;
 		}
