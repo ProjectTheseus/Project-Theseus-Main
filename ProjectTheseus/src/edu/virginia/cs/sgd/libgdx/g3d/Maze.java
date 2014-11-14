@@ -315,6 +315,11 @@ public class Maze {
 	public MazeNode[][][] getGrid() {
 		return grid;
 	}
+	
+	public MazeNode getRandNode() {
+		Random rand = new Random();
+		return grid[rand.nextInt(x_Dim)][rand.nextInt(y_Dim)][0];
+	}
 
 	public int gridSize() {
 		return x_Dim * y_Dim * z_Dim;
