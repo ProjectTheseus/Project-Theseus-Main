@@ -13,6 +13,7 @@ import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.game.Game;
+import edu.virginia.cs.sgd.libgdx.inventory.InventoryScreen;
 import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
 
 /**
@@ -32,6 +33,7 @@ public class MyCameraInputController extends CameraInputController {
 	// int looking; // int value pertaining to whether the camera is facing
 	// up, forward, or down
 	private boolean firstMove; // boolean flag, true if it is the firstMove
+	private boolean invOpen;
 	private CamPivot pivot; // holds CamPivot
 	// private CamPoint pointer; // holds CamPoint
 	private CamPull pull; // holds CamPull
@@ -59,6 +61,7 @@ public class MyCameraInputController extends CameraInputController {
 		// this.looking = 1;
 		this.current = m.getStart();
 		firstMove = true;
+		invOpen = false;
 		prevTime = System.currentTimeMillis() - 500;
 	}
 
@@ -110,6 +113,16 @@ public class MyCameraInputController extends CameraInputController {
 		// input taken if the maze is unfinished
 		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			switch (keycode) {
+			
+			// Open inventory
+			case Input.Keys.I:
+				if (!invOpen) {
+					invOpen = true;
+					mb.changeScreen(InventoryScreen.class);
+				} else {
+					invOpen = false;
+				}
+				break;
 
 			// Restart level
 			case Input.Keys.BACKSPACE:

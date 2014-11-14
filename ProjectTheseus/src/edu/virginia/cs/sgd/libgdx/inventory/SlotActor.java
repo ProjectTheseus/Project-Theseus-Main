@@ -13,7 +13,7 @@ public class SlotActor extends ImageButton implements SlotListener {
 	private Slot slot;
 	private Skin skin;
 	private static SingletonAssetManager sam = SingletonAssetManager
-			.getInstance();;
+			.getInstance();
 
 	public SlotActor(Skin skin, Slot slot) {
 		super(createStyle(skin, slot));
@@ -22,13 +22,13 @@ public class SlotActor extends ImageButton implements SlotListener {
 
 		slot.addListener(this);
 
-		// SlotToolTip toolTip = new SlotToolTip(slot, skin);
-		// InventoryScreen.stage.addActor(toolTip);
-		// addListener(new ToolTipListener(toolTip, true));
+		SlotTooltip tooltip = new SlotTooltip(slot, skin);
+		InventoryScreen.stage.addActor(tooltip);
+		addListener(new TooltipListener(tooltip, true));
 	}
 
 	private static ImageButtonStyle createStyle(Skin skin, Slot slot) {
-		TextureAtlas icons = (TextureAtlas) sam.get("");
+		TextureAtlas icons = (TextureAtlas) sam.get("icons");
 		TextureRegion image;
 		if (slot.getItem() != null) {
 			image = icons.findRegion(slot.getItem().getTextureRegion());

@@ -7,12 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 public class InventoryActor extends Window {
 
-	public InventoryActor(Inventory inventory, DragAndDrop dragAndDrop,
+	public InventoryActor(InventoryScreen invScreen, Inventory inventory, DragAndDrop dragAndDrop,
 			Skin skin) {
 		super("Inventory", skin);
 
 		TextButton closeButton = new TextButton("X", skin);
-		closeButton.addListener(new HidingClickListener(this));
+		closeButton.addListener(new HidingClickListener(this, invScreen));
 		getButtonTable().add(closeButton).height(getPadTop());
 
 		setPosition(400, 400);
@@ -24,8 +24,8 @@ public class InventoryActor extends Window {
 			SlotActor slotActor = new SlotActor(skin, slot);
 			add(slotActor);
 
-			// dragAndDrop.addSource(new SlotSource(slotActor));
-			// dragAndDrop.addTarget(new SlotTarget(slotActor));
+			dragAndDrop.addSource(new SlotSource(slotActor));
+			dragAndDrop.addTarget(new SlotTarget(slotActor));
 
 			i++;
 			if (i % 5 == 0) {
