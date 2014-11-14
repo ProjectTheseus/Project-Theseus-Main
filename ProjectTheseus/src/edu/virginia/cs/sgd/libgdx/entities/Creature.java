@@ -105,7 +105,7 @@ public class Creature extends Entity {
 	@Override
 	public void die() {
 		box.transform.translate(100, 100, 100);
-		player.gainXP(10);
+		player.gainXP(1000);
 	}
 
 	public ModelInstance getBox() {

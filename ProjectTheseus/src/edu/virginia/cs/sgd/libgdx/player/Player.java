@@ -48,7 +48,11 @@ public class Player extends Entity {
 
 	@Override
 	public void heal(int hp) {
-		currentHealth += hp;
+		if (currentHealth + hp >= maxHealth) {
+			currentHealth = maxHealth;
+		} else {
+			currentHealth += hp;
+		}
 	}
 
 	@Override

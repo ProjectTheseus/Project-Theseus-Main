@@ -80,14 +80,20 @@ public class MyCameraInputController extends CameraInputController {
 
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
+		boolean attacked = false;
 		if (System.currentTimeMillis() - prevTime > 500) {
 			if (!m.getAtEnd() && current != null && game.isPlayerTurn()
 					&& !game.getPlayer().isDead()) {
 				for (Creature c : game.getCreatures()) {
-					if (c.getLocation().equals(current.getNeighbors()[faceTo]) && !current.getWalls()[faceTo]) {
+					if (c.getLocation().equals(current.getNeighbors()[faceTo])
+							&& !current.getWalls()[faceTo]) {
 						game.getPlayer().attack(c);
-						;
+						attacked = true;
 					}
+				}
+				if (!attacked) {
+					game.getPlayer().heal(
+							(int) (game.getPlayer().getMaxHealth() * 0.05));
 				}
 				game.endPlayerTurn();
 			}
@@ -154,6 +160,9 @@ public class MyCameraInputController extends CameraInputController {
 							&& System.currentTimeMillis() - prevTime > 1000) {
 						if (backTo == m.getStartSide()) {
 							new Thread(pull).start();
+							game.getPlayer()
+									.heal((int) (game.getPlayer()
+											.getMaxHealth() * 0.05));
 							m.incrementMoveCount();
 							prevTime = System.currentTimeMillis();
 						}
@@ -162,6 +171,8 @@ public class MyCameraInputController extends CameraInputController {
 							&& !firstMove) {
 						current = current.getNeighbors()[faceTo];
 						new Thread(pull).start();
+						game.getPlayer().heal(
+								(int) (game.getPlayer().getMaxHealth() * 0.05));
 						m.incrementMoveCount();
 						prevTime = System.currentTimeMillis();
 						game.endPlayerTurn();
@@ -169,6 +180,8 @@ public class MyCameraInputController extends CameraInputController {
 							&& backTo == m.getStartSide()) {
 						current = current.getNeighbors()[faceTo];
 						new Thread(pull).start();
+						game.getPlayer().heal(
+								(int) (game.getPlayer().getMaxHealth() * 0.05));
 						m.incrementMoveCount();
 						prevTime = System.currentTimeMillis();
 						game.endPlayerTurn();
@@ -187,6 +200,8 @@ public class MyCameraInputController extends CameraInputController {
 							&& current.getNeighbors()[backTo] != null) {
 						current = current.getNeighbors()[backTo];
 						new Thread(pull).start();
+						game.getPlayer().heal(
+								(int) (game.getPlayer().getMaxHealth() * 0.05));
 						m.incrementMoveCount();
 						game.endPlayerTurn();
 					}
