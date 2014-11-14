@@ -232,6 +232,7 @@ public class MazeBuilder extends AbstractScreen {
 			ModelInstance model = new ModelInstance(models.get(count), creature.getLocation().getX() * spacing,
 					creature.getLocation().getZ() * spacing, 0);
 			instances.add(model);
+			creature.setBox(model);
 		}
 	}
 
