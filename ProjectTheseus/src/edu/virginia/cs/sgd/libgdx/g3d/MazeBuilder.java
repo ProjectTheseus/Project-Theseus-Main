@@ -70,7 +70,7 @@ public class MazeBuilder extends AbstractScreen {
 	@Override
 	public void show() {
 		super.show();
-		
+
 		x = Game.getLevel() + 2;
 		y = Game.getLevel() + 2;
 
@@ -223,14 +223,14 @@ public class MazeBuilder extends AbstractScreen {
 		Gdx.input.setInputProcessor(camController);
 
 		game = new Game(camController, this);
-		
+
 		for (Creature creature : game.getCreatures()) {
-			models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
-					Usage.Position | Usage.Normal
-							| Usage.TextureCoordinates));
+			models.add(modelBuilder.createBox(3f, 3f, 6f, minM, Usage.Position
+					| Usage.Normal | Usage.TextureCoordinates));
 			count++;
-			ModelInstance model = new ModelInstance(models.get(count), creature.getLocation().getX() * spacing,
-					creature.getLocation().getZ() * spacing, 0);
+			ModelInstance model = new ModelInstance(models.get(count), creature
+					.getLocation().getX() * spacing, creature.getLocation()
+					.getZ() * spacing, 0);
 			instances.add(model);
 			creature.setBox(model);
 		}
@@ -260,14 +260,14 @@ public class MazeBuilder extends AbstractScreen {
 
 		// Draws text on screen
 		spriteBatch.begin();
-		if (m.getAtEnd()) {
-			CharSequence str = "You Won! You Finished the Maze in "
-					+ String.valueOf(m.getMoveCount()) + " moves!";
-			font.draw(spriteBatch, str, 160, 240);
-			str = "You took "
-					+ String.valueOf(m.getMoveCount()
-							- shortPath.shortPathLen()) + " extra moves.";
-			font.draw(spriteBatch, str, 220, 220);
+		if (game.getPlayer().isDead()) {
+			CharSequence str = "You Died!";
+			font.draw(
+					spriteBatch,
+					str,
+					this.cam.viewportWidth / 2 - font.getSpaceWidth()
+							* str.length() / 2, this.cam.viewportHeight / 2);
+			font.setScale(4);
 		} else {
 			CharSequence str = "Health: " + game.getPlayer().getCurrentHealth();
 			// + String.valueOf(m.getMoveCount());
