@@ -2,6 +2,10 @@
  * Name: Dylan Hellems
  * Computing ID: djh5sc
  */
+/**
+ * Name: Dylan Hellems
+ * Computing ID: djh5sc
+ */
 package edu.virginia.cs.sgd.libgdx.g3d;
 
 import java.util.ArrayList;
@@ -26,6 +30,7 @@ import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
+import edu.virginia.cs.sgd.libgdx.entities.Creature;
 import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.path.Path;
 import edu.virginia.cs.sgd.libgdx.screen.AbstractScreen;
@@ -66,8 +71,6 @@ public class MazeBuilder extends AbstractScreen {
 	public void show() {
 		super.show();
 		
-		ModelInstance minotaur = new ModelInstance(new Model());
-
 		x = Game.getLevel() + 2;
 		y = Game.getLevel() + 2;
 
@@ -212,17 +215,6 @@ public class MazeBuilder extends AbstractScreen {
 						instances.add(new ModelInstance(models.get(count), x,
 								y, z + spacingDiff));
 					}
-					if (m.getGrid()[x / spacing][y / spacing][z / spacing]
-							.equals(m.getEnd())) {
-						models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
-								Usage.Position | Usage.Normal
-										| Usage.TextureCoordinates));
-						count++;
-						minotaur = new ModelInstance(models.get(count), (m
-								.getEnd().getX() * spacing),
-								(m.getEnd().getY() * spacing), z);
-						instances.add(minotaur);
-					}
 				}
 			}
 		}
@@ -231,7 +223,17 @@ public class MazeBuilder extends AbstractScreen {
 		Gdx.input.setInputProcessor(camController);
 
 		game = new Game(camController, this);
-		game.getCreatures().get(0).setBox(minotaur);
+		
+		for (Creature creature : game.getCreatures()) {
+			models.add(modelBuilder.createBox(3f, 3f, 6f, minM,
+					Usage.Position | Usage.Normal
+							| Usage.TextureCoordinates));
+			count++;
+			ModelInstance model = new ModelInstance(models.get(count), creature.getLocation().getX() * spacing,
+					creature.getLocation().getZ() * spacing, 0);
+			instances.add(model);
+			creature.setBox(model);
+		}
 	}
 
 	/**
@@ -258,10 +260,14 @@ public class MazeBuilder extends AbstractScreen {
 
 		// Draws text on screen
 		spriteBatch.begin();
-		if (game.getPlayer().isDead()) {
-			CharSequence str = "You Are Dead!";
-			font.draw(spriteBatch, str, 450, 340);
-			font.setScale(2);
+		if (m.getAtEnd()) {
+			CharSequence str = "You Won! You Finished the Maze in "
+					+ String.valueOf(m.getMoveCount()) + " moves!";
+			font.draw(spriteBatch, str, 160, 240);
+			str = "You took "
+					+ String.valueOf(m.getMoveCount()
+							- shortPath.shortPathLen()) + " extra moves.";
+			font.draw(spriteBatch, str, 220, 220);
 		} else {
 			CharSequence str = "Health: " + game.getPlayer().getCurrentHealth();
 			// + String.valueOf(m.getMoveCount());

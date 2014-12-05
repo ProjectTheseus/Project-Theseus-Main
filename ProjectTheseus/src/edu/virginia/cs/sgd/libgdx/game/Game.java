@@ -5,6 +5,7 @@
 package edu.virginia.cs.sgd.libgdx.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.entities.Creature;
@@ -67,9 +68,12 @@ public class Game {
 	}
 
 	private void generateCreatures() {
-		Creature minotaur = new Creature(this, mb.getMaze().getEnd(),
-				100, 10, 0, 0);
-		creatures.add(minotaur);
+		Random rand = new Random();
+		for (int i = 0; i < rand.nextInt((int)Math.pow(level, 2)) + 1; i++) {
+			Creature minotaur = new Creature(this, mb.getMaze().getRandNode(),
+				100 * level, 10 + level*level, level, level);
+			creatures.add(minotaur);
+		}
 	}
 
 	public void nextLevel() {
@@ -127,7 +131,9 @@ public class Game {
 		playerTurn = false;
 		if (!playerTurn) {
 			if (this.getCreatures().size() > 0) {
-				creatures.get(0).determineBestAction();
+				for (Creature creature : creatures) {
+					creature.determineBestAction();
+				}
 			}
 			playerTurn = true;
 		}
