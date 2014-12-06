@@ -7,6 +7,8 @@ package edu.virginia.cs.sgd.libgdx.game;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g3d.Model;
+
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.entities.Creature;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
@@ -138,6 +140,11 @@ public class Game {
 				for (Creature creature : creatures) {
 					creature.determineBestAction();
 				}
+			}
+			if (getMaze().getMoveCount() > level + 10){
+				Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10);
+				creatures.add(creature);
+				mb.spawnCreature(creature);
 			}
 			playerTurn = true;
 		}
