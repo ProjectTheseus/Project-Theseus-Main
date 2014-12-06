@@ -185,9 +185,6 @@ public class Path {
 	 */
 	private ArrayList<Integer> dirs() {
 		ArrayList<Integer> r = new ArrayList<Integer>();
-		if (start.equals(m.getStart())) {
-			r.add(m.oppDir(m.getStartSide()));
-		}
 		for (int i = 0; i < path.size() - 1; i++) {
 			for (int j = 0; j < 6; j++) {
 				if (path.get(i + 1).equals(path.get(i).getNeighbors()[j])) {
