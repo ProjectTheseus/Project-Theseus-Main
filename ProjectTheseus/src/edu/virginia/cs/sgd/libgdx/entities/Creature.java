@@ -62,13 +62,15 @@ public class Creature extends Entity {
 	}
 
 	public boolean detectPlayerRange() {
-		Path p = new Path(game.getMaze(), this.location, player.location);
-		int xdiff = Math.abs(this.location.getX()
-				- player.getCam().getCurrent().getX());
-		int ydiff = Math.abs(this.location.getY()
-				- player.getCam().getCurrent().getY());
-		if (p.shortPathLen() <= this.perception) {
-			return true;
+		if (player.getCam().getCurrent() != null) {
+			Path p = new Path(game.getMaze(), this.location, player.location);
+			int xdiff = Math.abs(this.location.getX()
+					- player.getCam().getCurrent().getX());
+			int ydiff = Math.abs(this.location.getY()
+					- player.getCam().getCurrent().getY());
+			if (p.shortPathLen() <= this.perception) {
+				return true;
+			}
 		}
 		return false;
 	}
