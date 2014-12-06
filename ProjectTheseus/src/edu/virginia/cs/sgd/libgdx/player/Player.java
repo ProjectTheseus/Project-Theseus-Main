@@ -85,13 +85,10 @@ public class Player extends Entity {
 		// When the char got a level up , a window should pop up and let the
 		// player choose the level up option
 		JFrame frame = new JFrame("Level Up!");
-		Object[] possibilities = { "Speed", "Attack", "Defense" };
+		Object[] possibilities = { "Attack", "Defense" };
 		String s = (String) JOptionPane.showInputDialog(frame,
 				"Choose level up option", "Please choose a level up Option",
-				JOptionPane.PLAIN_MESSAGE, null, possibilities, "Speed");
-		if (s == "Speed") {
-			speed += 10;
-		}
+				JOptionPane.PLAIN_MESSAGE, null, possibilities, "Attack");
 		if (s == "Defense")
 			defense += 10;
 		if (s == "Attack")

@@ -100,13 +100,46 @@ public class MazeBuilder extends AbstractScreen {
 		cam.rotate(90, 1, 0, 0);
 
 		// sets camera location based on Maze start node
-		cam.position.set((m.getStart().getX() * spacing), (m.getStart()
-				.getY() * spacing),
-				(m.getStart().getZ() * spacing));
-		cam.lookAt((m.getStart().getX() * spacing),
-				((m.getStart().getY() * spacing)) * -1, (m.getStart()
-						.getZ() * spacing));
-			
+		switch (m.getStartSide()) {
+
+		case 0:
+			cam.position.set((m.getStart().getX() * spacing), (m.getStart()
+					.getY()) * spacing,
+					(m.getStart().getZ() * spacing));
+			cam.lookAt((m.getStart().getX() * spacing),
+					((m.getStart().getY() - 1 * spacing)) * -1, (m.getStart()
+							.getZ() * spacing));
+			break;
+
+		case 1:
+			cam.position.set((m.getStart().getX()) * spacing, (m
+					.getStart().getY() * spacing),
+					(m.getStart().getZ() * spacing));
+			cam.lookAt(((m.getStart().getX() * spacing)) * -1, (m.getStart()
+					.getY() * spacing), (m.getStart().getZ() * spacing));
+			break;
+
+		case 2:
+			cam.position.set((m.getStart().getX() * spacing), (m.getStart()
+					.getY()) * spacing,
+					(m.getStart().getZ() * spacing));
+			cam.lookAt((m.getStart().getX() * spacing),
+					((m.getStart().getY() * spacing)) * -1, (m.getStart()
+							.getZ() * spacing));
+			break;
+
+		case 3:
+			cam.position.set((m.getStart().getX()) * spacing, (m
+					.getStart().getY() * spacing),
+					(m.getStart().getZ() * spacing));
+			cam.lookAt(((m.getStart().getX() - 1 * spacing)) * -1, (m.getStart()
+					.getY() * spacing), (m.getStart().getZ() * spacing));
+			break;
+
+		default:
+			break;
+
+		}
 		cam.near = 0.1f;
 		cam.far = 300f;
 		cam.update();
