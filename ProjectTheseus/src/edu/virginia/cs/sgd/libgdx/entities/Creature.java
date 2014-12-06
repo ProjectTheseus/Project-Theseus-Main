@@ -16,6 +16,7 @@ public class Creature extends Entity {
 	private ModelInstance box;
 	private Player player;
 	private cPull cPull;
+	private boolean aggressive = false;
 
 	private final float moveLen = (float) MazeBuilder.spacing / 100;
 
@@ -29,7 +30,14 @@ public class Creature extends Entity {
 		this.game = game;
 		this.player = game.getPlayer();
 	}
+	
+	public Creature(Game game, MazeNode location, int maxH, int atk, int def,
+			int spd, boolean aggressive) {
+		this(game, location, maxH, atk, def, spd);
+		this.aggressive = aggressive;
+	}
 
+	@Override
 	public String toString() {
 		return "Creature";
 	}
@@ -63,9 +71,9 @@ public class Creature extends Entity {
 
 	public boolean detectPlayerRange() {
 		if (player.getCam().getCurrent() != null) {
-			MazeNode ploc = player.getCam().getCurrent();
 			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
 			System.out.println("Loc: " + location.getX() + ", " + location.getY());
+			MazeNode ploc = player.getCam().getCurrent();
 			System.out.println("Player loc: " + ploc.getX() + ", " + ploc.getY());
 			System.out.println("Length: " + p.shortPathLen());
 			System.out.println(p.getDirArray());
@@ -81,7 +89,7 @@ public class Creature extends Entity {
 	public void determineBestAction() {
 		if (this.detectPlayer()) {
 			this.attack(player);
-		} else if (this.detectPlayerRange()) {
+		} else if (aggressive || this.detectPlayerRange()) {
 			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
 			System.out.println("Turns: " + p.getNumTurns());
 			if (p.getNumTurns() < 3) {
