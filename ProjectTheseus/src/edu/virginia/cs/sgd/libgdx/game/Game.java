@@ -144,8 +144,8 @@ public class Game {
 				}
 			}
 			System.out.println("Turn #: " + turnNum);
-			if (turnNum > 2 * level + 15){
-				Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10);
+			if (turnNum == 2 * level + 15){
+				Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10, true);
 				creatures.add(creature);
 				mb.spawnCreature(creature);
 			}

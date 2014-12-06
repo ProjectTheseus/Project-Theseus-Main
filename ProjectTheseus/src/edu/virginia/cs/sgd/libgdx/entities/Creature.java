@@ -92,7 +92,7 @@ public class Creature extends Entity {
 			this.attack(player);
 		} else if (aggressive || this.detectPlayerRange()) {
 			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
-			if (p.getNumTurns() < 3) {
+			if (aggressive || p.getNumTurns() < 3) {
 				this.setLocation(this.location.getNeighbors()[p.getDirArray()
 						.get(0)]);
 				this.move(p.getDirArray().get(0)); // moves the creature one
