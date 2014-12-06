@@ -4,6 +4,8 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.openal.Mp3.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -13,12 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
-import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.screen.AbstractScreen;
 import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
 
 public class SplashScreen extends AbstractScreen {
 	private Image splashImage;
+	private SingletonAssetManager sam = SingletonAssetManager.getInstance();
+	private com.badlogic.gdx.audio.Sound theme;
+	private com.badlogic.gdx.audio.Sound start;
 
 	public SplashScreen() {
 		super();
@@ -48,6 +52,9 @@ public class SplashScreen extends AbstractScreen {
 
 		// and finally we add the actor to the stage
 		stage.addActor(splashImage);
+		
+		theme = Gdx.audio.newSound(Gdx.files.internal(("resources/Theseus_Ambient_Theme.mp3")));
+		theme.setVolume(theme.loop(), .5f);
 
 	}
 
@@ -64,6 +71,8 @@ public class SplashScreen extends AbstractScreen {
 				}
 			}));
 
+			start = Gdx.audio.newSound(Gdx.files.internal(("resources/Theseus_FX.mp3")));
+			start.setVolume(start.play(), .5f);
 			stage.addActor(splashImage);
 	}
 }

@@ -16,7 +16,6 @@ import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
 
 public class Creature extends Entity {
 
-	private Game game;
 	private ModelInstance box;
 	private Player player;
 	private cPull cPull;
@@ -33,8 +32,7 @@ public class Creature extends Entity {
 
 	public Creature(Game game, MazeNode location, int maxH, int atk, int def,
 			int spd) {
-		super(location, maxH, atk, def, spd);
-		this.game = game;
+		super(game, location, maxH, atk, def, spd);
 		this.player = game.getPlayer();
 		this.mat = new Material();
 		Random rand = new Random();
@@ -97,8 +95,6 @@ public class Creature extends Entity {
 		} else if (aggressive || this.detectPlayerRange()) {
 			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
 			if (aggressive || p.getNumTurns() < 3) {
-				this.setLocation(this.location.getNeighbors()[p.getDirArray()
-						.get(0)]);
 				this.move(p.getDirArray().get(0)); // moves the creature one
 													// space towards the player
 			}
@@ -107,8 +103,7 @@ public class Creature extends Entity {
 			Random random = new Random();
 			int i = random.nextInt(4);
 			if (!this.location.getWalls()[i]
-					&& this.location.getNeighbors()[i] != null) {
-				this.setLocation(this.location.getNeighbors()[i]);
+					&& this.location.getNeighbors()[i] != null ) {
 				this.move(i);
 			} else {
 				this.determineBestAction();
@@ -117,8 +112,20 @@ public class Creature extends Entity {
 	}
 
 	public void move(int direction) {
-		cPull = new cPull(this, direction);
-		new Thread(cPull).start();
+		if (notBlocked(direction)) {
+			this.setLocation(this.location.getNeighbors()[direction]);
+			cPull = new cPull(this, direction);
+			new Thread(cPull).start();
+		}
+	}
+	
+	public boolean notBlocked(int direction) {
+		for (Creature creature: game.getCreatures()) {
+			if (creature.getLocation().equals(this.location.getNeighbors()[direction])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class Game {
 		this.cam = cam;
 		this.cam.setGame(this);
 		if (player == null) {
-			player = new Player(cam);
+			player = new Player(this, cam);
 		} else {
 			player.setLocation(mb.getMaze().getStart());
 			player.setCam(cam);
@@ -104,7 +104,7 @@ public class Game {
 	}
 	
 	public void resetPlayer() {
-		player = new Player(cam);
+		player = new Player(this, cam);
 	}
 
 	/**
@@ -125,6 +125,10 @@ public class Game {
 	
 	public Maze getMaze() {
 		return this.mb.getMaze();
+	}
+	
+	public MazeBuilder getMB() {
+		return this.mb;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package edu.virginia.cs.sgd.libgdx;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.backends.openal.Mp3.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -89,6 +90,11 @@ public class Program extends Game implements ApplicationListener {
 		m.load("WhiteOut", "resources/white.jpg", Texture.class);
 		m.load("uiskin", "resources/skins/uiskin.json", Skin.class);
 		m.load("icons", "resources/icons/icons.atlas", TextureAtlas.class);
+		
+//		m.load("Ambient", "resources/Theseus_Ambient_Theme.mp3", Music.class);
+//		m.load("FX", "resources/Theseus_FX.mp3", Music.class);
+//		m.load("Hit", "resources/Theseus_Hit.mp3", Music.class);
+//		m.load("Footsteps", "resources/Theseus_Footsteps.mp3", Music.class);
 
 		m.finishLoading();
 

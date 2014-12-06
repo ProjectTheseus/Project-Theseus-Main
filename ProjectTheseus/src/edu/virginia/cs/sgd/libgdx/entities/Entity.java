@@ -1,6 +1,7 @@
 package edu.virginia.cs.sgd.libgdx.entities;
 
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
+import edu.virginia.cs.sgd.libgdx.game.Game;
 
 //superclass for creatures
 //stats: health, defense, other things, location (point class)
@@ -10,6 +11,7 @@ public class Entity {
 
 	protected int maxHealth, currentHealth, attack, defense, speed, perception;
 	protected MazeNode location;
+	protected Game game;
 
 	// protected Weapon weapon;
 	// protected Armor armor;
@@ -18,8 +20,9 @@ public class Entity {
 		// default values
 	}
 
-	public Entity(MazeNode location, int maxH, int atk, int def, int spd) {
+	public Entity(Game game, MazeNode location, int maxH, int atk, int def, int spd) {
 
+		this.game = game;
 		this.location = location;
 		this.maxHealth = maxH;
 		this.currentHealth = maxH;
@@ -45,6 +48,7 @@ public class Entity {
 		double hit = Math.random();
 
 		if (hit <= accuracy) {
+			game.getMB().addCombatText(this + " dealing: " + damage + " damage");
 			System.out.println(this + " dealing: " + damage + " damage");
 			e.takeDamage(damage);
 		}
@@ -58,9 +62,12 @@ public class Entity {
 			this.currentHealth = 0;
 			this.die();
 		}
+		game.getMB().addCombatText(this + " takes: " + finalDamage + " out of "
+				+ damage);
 		System.out.println(this + " takes: " + finalDamage + " out of "
 				+ damage);
 		// System.out.println("(Blocked: " + blocked + ")");
+		game.getMB().addCombatText(this + "'s health: " + currentHealth + "\r\n");
 		System.out.println(this + "'s health: " + currentHealth + "\r\n");
 	}
 

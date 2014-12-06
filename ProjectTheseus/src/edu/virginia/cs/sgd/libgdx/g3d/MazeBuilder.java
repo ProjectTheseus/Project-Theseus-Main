@@ -42,6 +42,7 @@ import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
  *         MazeBuilder class - creates 3D environment and builds Maze
  */
 public class MazeBuilder extends AbstractScreen {
+	private ArrayList<String> combatText;
 	private Maze m; // holds maze object
 	private Path shortPath; // holds path object
 	private Game game; // holds game object
@@ -71,6 +72,8 @@ public class MazeBuilder extends AbstractScreen {
 	@Override
 	public void show() {
 		super.show();
+		
+		combatText = new ArrayList<String>();
 
 		x = Game.getLevel() + 2;
 		y = Game.getLevel() + 2;
@@ -104,8 +107,8 @@ public class MazeBuilder extends AbstractScreen {
 		switch (m.getStartSide()) {
 
 		case 0:
-			cam.position.set((m.getStart().getX() * spacing), (m.getStart()
-					.getY()) * spacing,
+			cam.position.set((m.getStart().getX() * spacing),
+					(m.getStart().getY()) * spacing,
 					(m.getStart().getZ() * spacing));
 			cam.lookAt((m.getStart().getX() * spacing),
 					((m.getStart().getY() - 1 * spacing)) * -1, (m.getStart()
@@ -113,16 +116,15 @@ public class MazeBuilder extends AbstractScreen {
 			break;
 
 		case 1:
-			cam.position.set((m.getStart().getX()) * spacing, (m
-					.getStart().getY() * spacing),
-					(m.getStart().getZ() * spacing));
+			cam.position.set((m.getStart().getX()) * spacing, (m.getStart()
+					.getY() * spacing), (m.getStart().getZ() * spacing));
 			cam.lookAt(((m.getStart().getX() * spacing)) * -1, (m.getStart()
 					.getY() * spacing), (m.getStart().getZ() * spacing));
 			break;
 
 		case 2:
-			cam.position.set((m.getStart().getX() * spacing), (m.getStart()
-					.getY()) * spacing,
+			cam.position.set((m.getStart().getX() * spacing),
+					(m.getStart().getY()) * spacing,
 					(m.getStart().getZ() * spacing));
 			cam.lookAt((m.getStart().getX() * spacing),
 					((m.getStart().getY() * spacing)) * -1, (m.getStart()
@@ -130,11 +132,11 @@ public class MazeBuilder extends AbstractScreen {
 			break;
 
 		case 3:
-			cam.position.set((m.getStart().getX()) * spacing, (m
+			cam.position.set((m.getStart().getX()) * spacing, (m.getStart()
+					.getY() * spacing), (m.getStart().getZ() * spacing));
+			cam.lookAt(((m.getStart().getX() - 1 * spacing)) * -1, (m
 					.getStart().getY() * spacing),
 					(m.getStart().getZ() * spacing));
-			cam.lookAt(((m.getStart().getX() - 1 * spacing)) * -1, (m.getStart()
-					.getY() * spacing), (m.getStart().getZ() * spacing));
 			break;
 
 		default:
@@ -152,7 +154,6 @@ public class MazeBuilder extends AbstractScreen {
 		Material wallM = new Material();
 		wallM.set(TextureAttribute.createDiffuse((Texture) sam.get("Wall")),
 				ColorAttribute.createDiffuse(Color.GRAY));
-		
 
 		// builds walls and fills 3D space with Maze
 		int count = -1;
@@ -263,11 +264,8 @@ public class MazeBuilder extends AbstractScreen {
 			font.setScale(4);
 		} else {
 			CharSequence str = "Health: " + game.getPlayer().getCurrentHealth();
-			// + String.valueOf(m.getMoveCount());
 			font.draw(spriteBatch, str, 20, 20);
-			// str = "Moves Needed: " +
-			// String.valueOf(shortPath.shortPathLen());
-			// font.draw(spriteBatch, str, 500, 20);
+			drawCombatText(font, spriteBatch);
 		}
 		spriteBatch.end();
 	}
@@ -301,16 +299,30 @@ public class MazeBuilder extends AbstractScreen {
 	public Maze getMaze() {
 		return m;
 	}
-	
+
 	public void spawnCreature(Creature creature) {
-		Model m = modelBuilder.createBox(3f, 3f, 6f, creature.getMaterial(), Usage.Position
-				| Usage.Normal | Usage.TextureCoordinates);
+		Model m = modelBuilder.createBox(3f, 3f, 6f, creature.getMaterial(),
+				Usage.Position | Usage.Normal | Usage.TextureCoordinates);
 		models.add(m);
 		ModelInstance model = new ModelInstance(m, creature.getLocation()
-				.getX() * spacing, creature.getLocation().getY() * spacing,
-				0);
+				.getX() * spacing, creature.getLocation().getY() * spacing, 0);
 		instances.add(model);
 		creature.setBox(model);
 	}
 
+	public void addCombatText(String str) {
+		combatText.add(str);
+	}
+
+	public void drawCombatText(BitmapFont font, SpriteBatch spriteBatch) {
+		if (combatText.size() > 5) {
+			for (int i = combatText.size() - 6; i < combatText.size(); i++) {
+				int locY = 20 + 20*-1*(i - combatText.size());
+				if (i - combatText.size() < -3) {
+					locY += 20;
+				}
+				font.draw(spriteBatch, combatText.get(i), this.VIEWPORT_WIDTH - 100, locY);
+			}
+		}
+	}
 }

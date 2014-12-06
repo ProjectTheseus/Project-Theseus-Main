@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 
 import edu.virginia.cs.sgd.libgdx.camera.MyCameraInputController;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
+import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 
 public class Player extends Entity {
@@ -24,9 +25,9 @@ public class Player extends Entity {
 		// quickInventory = inventory.getQuick();
 	}
 
-	public Player(MyCameraInputController cam) {
+	public Player(Game game, MyCameraInputController cam) {
 		// Sample base stats
-		super(cam.getCurrent(), 100, 15, 0, 1);
+		super(game, cam.getCurrent(), 100, 15, 0, 1);
 		this.cam = cam;
 		dead = false;
 		xp = 0;

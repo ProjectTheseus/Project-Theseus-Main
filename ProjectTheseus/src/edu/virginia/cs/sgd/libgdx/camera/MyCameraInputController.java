@@ -4,6 +4,7 @@
  */
 package edu.virginia.cs.sgd.libgdx.camera;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
@@ -23,6 +24,9 @@ import edu.virginia.cs.sgd.libgdx.menu.SplashScreen;
  *         moves/rotates camera
  */
 public class MyCameraInputController extends CameraInputController {
+	private com.badlogic.gdx.audio.Sound footsteps;
+	private com.badlogic.gdx.audio.Sound hit;
+	private com.badlogic.gdx.audio.Sound fx;
 	private Game game; // holds game object;
 	private MazeBuilder mb; // holds MazeBuilder object
 	private Maze m; // holds Maze object
@@ -63,6 +67,9 @@ public class MyCameraInputController extends CameraInputController {
 		firstMove = false;
 		invOpen = false;
 		prevTime = System.currentTimeMillis() - 500;
+		footsteps = Gdx.audio.newSound(Gdx.files.internal(("resources/Thesus_Footsteps.mp3")));
+		hit = Gdx.audio.newSound(Gdx.files.internal(("resources/Theseus_Hit.mp3")));
+		fx = Gdx.audio.newSound(Gdx.files.internal(("resources/Theseus_FX.mp3")));
 	}
 
 	/**
@@ -101,6 +108,7 @@ public class MyCameraInputController extends CameraInputController {
 				game.endPlayerTurn();
 			}
 			prevTime = System.currentTimeMillis();
+			hit.setVolume(hit.play(), .5f);
 		}
 		return true;
 	}
@@ -207,6 +215,7 @@ public class MyCameraInputController extends CameraInputController {
 						prevTime = System.currentTimeMillis();
 						game.endPlayerTurn();
 					}
+					footsteps.setVolume(footsteps.play(), .5f);
 				}
 				break;
 
@@ -236,6 +245,7 @@ public class MyCameraInputController extends CameraInputController {
 						game.endPlayerTurn();
 					}
 					prevTime = System.currentTimeMillis();
+					footsteps.setVolume(footsteps.play(), .5f);
 
 				}
 				break;
@@ -247,6 +257,7 @@ public class MyCameraInputController extends CameraInputController {
 			super.camera.update();
 			super.update();
 			if (current == null) {
+				fx.setVolume(fx.play(), .5f);
 				mb.getGame().nextLevel();
 			}
 			super.camera.update();
