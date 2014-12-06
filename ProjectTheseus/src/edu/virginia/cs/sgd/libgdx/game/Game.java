@@ -71,7 +71,7 @@ public class Game {
 		Random rand = new Random();
 		for (int i = 0; i < rand.nextInt((int)Math.pow(level, 2)) + 1; i++) {
 			Creature minotaur = new Creature(this, mb.getMaze().getRandNode(),
-				100 * level, 10 + level*level, level, level);
+				100 * (int)Math.sqrt(level), 10 + level*(level - 1), level, level);
 			creatures.add(minotaur);
 		}
 	}

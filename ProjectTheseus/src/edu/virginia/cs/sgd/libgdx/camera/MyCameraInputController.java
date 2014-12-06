@@ -113,7 +113,7 @@ public class MyCameraInputController extends CameraInputController {
 		// input taken if the maze is unfinished
 		if (!m.getAtEnd() && current != null && game.isPlayerTurn()) {
 			switch (keycode) {
-			
+
 			// Open inventory
 			case Input.Keys.I:
 				if (!invOpen) {

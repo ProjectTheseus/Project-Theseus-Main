@@ -318,7 +318,12 @@ public class Maze {
 	
 	public MazeNode getRandNode() {
 		Random rand = new Random();
-		return grid[rand.nextInt(x_Dim)][rand.nextInt(y_Dim)][0];
+		MazeNode temp = grid[rand.nextInt(x_Dim)][rand.nextInt(y_Dim)][0];
+		if (temp != this.start) {
+			return temp;
+		} else {
+			return getRandNode();
+		}
 	}
 
 	public int gridSize() {
