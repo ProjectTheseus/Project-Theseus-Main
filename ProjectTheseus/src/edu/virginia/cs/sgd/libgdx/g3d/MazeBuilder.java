@@ -152,8 +152,7 @@ public class MazeBuilder extends AbstractScreen {
 		Material wallM = new Material();
 		wallM.set(TextureAttribute.createDiffuse((Texture) sam.get("Wall")),
 				ColorAttribute.createDiffuse(Color.GRAY));
-		Material minM = new Material();
-		minM.set(TextureAttribute.createDiffuse((Texture) sam.get("Minotaur")));
+		
 
 		// builds walls and fills 3D space with Maze
 		int count = -1;
@@ -226,7 +225,7 @@ public class MazeBuilder extends AbstractScreen {
 		game = new Game(camController, this);
 
 		for (Creature creature : game.getCreatures()) {
-			spawnCreature(creature, minM);
+			spawnCreature(creature);
 		}
 	}
 
@@ -303,8 +302,8 @@ public class MazeBuilder extends AbstractScreen {
 		return m;
 	}
 	
-	public void spawnCreature(Creature creature, Material mat) {
-		Model m = modelBuilder.createBox(3f, 3f, 6f, mat, Usage.Position
+	public void spawnCreature(Creature creature) {
+		Model m = modelBuilder.createBox(3f, 3f, 6f, creature.getMaterial(), Usage.Position
 				| Usage.Normal | Usage.TextureCoordinates);
 		models.add(m);
 		ModelInstance model = new ModelInstance(m, creature.getLocation()

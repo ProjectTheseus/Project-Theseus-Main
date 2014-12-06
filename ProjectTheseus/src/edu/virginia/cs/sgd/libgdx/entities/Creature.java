@@ -2,13 +2,17 @@ package edu.virginia.cs.sgd.libgdx.entities;
 
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.game.Game;
 import edu.virginia.cs.sgd.libgdx.path.Path;
 import edu.virginia.cs.sgd.libgdx.player.Player;
+import edu.virginia.cs.sgd.libgdx.util.SingletonAssetManager;
 
 public class Creature extends Entity {
 
@@ -16,6 +20,8 @@ public class Creature extends Entity {
 	private ModelInstance box;
 	private Player player;
 	private cPull cPull;
+	private Material mat;
+	public SingletonAssetManager sam = SingletonAssetManager.getInstance();
 
 	private final float moveLen = (float) MazeBuilder.spacing / 100;
 
@@ -28,6 +34,7 @@ public class Creature extends Entity {
 		super(location, maxH, atk, def, spd);
 		this.game = game;
 		this.player = game.getPlayer();
+		this.mat.set(TextureAttribute.createDiffuse((Texture) sam.get("Minotaur")));
 	}
 
 	public String toString() {
@@ -115,6 +122,10 @@ public class Creature extends Entity {
 
 	public void setBox(ModelInstance box) {
 		this.box = box;
+	}
+	
+	public Material getMaterial() {
+		return mat;
 	}
 
 	public void moveC(int direction) {
