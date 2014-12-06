@@ -60,7 +60,7 @@ public class MyCameraInputController extends CameraInputController {
 		this.backTo = m.getStartSide();
 		// this.looking = 1;
 		this.current = m.getStart();
-		firstMove = true;
+		firstMove = false;
 		invOpen = false;
 		prevTime = System.currentTimeMillis() - 500;
 	}

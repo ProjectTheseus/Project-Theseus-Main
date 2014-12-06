@@ -63,6 +63,7 @@ public class MazeBuilder extends AbstractScreen {
 	public SpriteBatch spriteBatch;
 	public BitmapFont font;
 	public SingletonAssetManager sam;
+	ModelBuilder modelBuilder;
 
 	/**
 	 * Creates app
@@ -104,15 +105,15 @@ public class MazeBuilder extends AbstractScreen {
 
 		case 0:
 			cam.position.set((m.getStart().getX() * spacing), (m.getStart()
-					.getY() * spacing) - spacing * 2,
+					.getY()) * spacing,
 					(m.getStart().getZ() * spacing));
 			cam.lookAt((m.getStart().getX() * spacing),
-					((m.getStart().getY() * spacing)) * -1, (m.getStart()
+					((m.getStart().getY() - 1 * spacing)) * -1, (m.getStart()
 							.getZ() * spacing));
 			break;
 
 		case 1:
-			cam.position.set((m.getStart().getX() * spacing) + spacing * 2, (m
+			cam.position.set((m.getStart().getX()) * spacing, (m
 					.getStart().getY() * spacing),
 					(m.getStart().getZ() * spacing));
 			cam.lookAt(((m.getStart().getX() * spacing)) * -1, (m.getStart()
@@ -121,7 +122,7 @@ public class MazeBuilder extends AbstractScreen {
 
 		case 2:
 			cam.position.set((m.getStart().getX() * spacing), (m.getStart()
-					.getY() * spacing) + spacing * 2,
+					.getY()) * spacing,
 					(m.getStart().getZ() * spacing));
 			cam.lookAt((m.getStart().getX() * spacing),
 					((m.getStart().getY() * spacing)) * -1, (m.getStart()
@@ -129,10 +130,10 @@ public class MazeBuilder extends AbstractScreen {
 			break;
 
 		case 3:
-			cam.position.set((m.getStart().getX() * spacing) - spacing * 2, (m
+			cam.position.set((m.getStart().getX()) * spacing, (m
 					.getStart().getY() * spacing),
 					(m.getStart().getZ() * spacing));
-			cam.lookAt(((m.getStart().getX() * spacing)) * -1, (m.getStart()
+			cam.lookAt(((m.getStart().getX() - 1 * spacing)) * -1, (m.getStart()
 					.getY() * spacing), (m.getStart().getZ() * spacing));
 			break;
 
@@ -144,7 +145,7 @@ public class MazeBuilder extends AbstractScreen {
 		cam.far = 300f;
 		cam.update();
 
-		ModelBuilder modelBuilder = new ModelBuilder();
+		modelBuilder = new ModelBuilder();
 		models = new ArrayList<Model>();
 		instances = new ArrayList<ModelInstance>();
 
@@ -225,14 +226,7 @@ public class MazeBuilder extends AbstractScreen {
 		game = new Game(camController, this);
 
 		for (Creature creature : game.getCreatures()) {
-			Model m = modelBuilder.createBox(3f, 3f, 6f, minM, Usage.Position
-					| Usage.Normal | Usage.TextureCoordinates);
-			models.add(m);
-			ModelInstance model = new ModelInstance(m, creature.getLocation()
-					.getX() * spacing, creature.getLocation().getY() * spacing,
-					0);
-			instances.add(model);
-			creature.setBox(model);
+			spawnCreature(creature, minM);
 		}
 	}
 
@@ -307,6 +301,17 @@ public class MazeBuilder extends AbstractScreen {
 
 	public Maze getMaze() {
 		return m;
+	}
+	
+	public void spawnCreature(Creature creature, Material mat) {
+		Model m = modelBuilder.createBox(3f, 3f, 6f, mat, Usage.Position
+				| Usage.Normal | Usage.TextureCoordinates);
+		models.add(m);
+		ModelInstance model = new ModelInstance(m, creature.getLocation()
+				.getX() * spacing, creature.getLocation().getY() * spacing,
+				0);
+		instances.add(model);
+		creature.setBox(model);
 	}
 
 }
