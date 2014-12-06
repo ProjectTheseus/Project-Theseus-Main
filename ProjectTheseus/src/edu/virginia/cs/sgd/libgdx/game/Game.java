@@ -95,6 +95,10 @@ public class Game {
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public void resetPlayer() {
+		player = new Player(cam);
+	}
 
 	/**
 	 * @return the creatures

@@ -127,12 +127,14 @@ public class MyCameraInputController extends CameraInputController {
 			// Restart level
 			case Input.Keys.BACKSPACE:
 				mb.changeScreen(MazeBuilder.class);
+				game.resetPlayer();
 				break;
 
 			// Restart game
 			case Input.Keys.ESCAPE:
 				mb.changeScreen(SplashScreen.class);
 				Game.setLevel(1);
+				game.resetPlayer();
 				break;
 
 			// Left arrow or A keys turn camera left
