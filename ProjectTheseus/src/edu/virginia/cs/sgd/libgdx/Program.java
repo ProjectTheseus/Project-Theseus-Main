@@ -87,9 +87,6 @@ public class Program extends Game implements ApplicationListener {
 		m.load("Orc2", "resources/Orc2.jpg", Texture.class);
 		m.load("Orc3", "resources/Orc3.jpg", Texture.class);
 		m.load("SplashScreen", "resources/logo.jpg", Texture.class);
-		m.load("WhiteOut", "resources/white.jpg", Texture.class);
-		m.load("uiskin", "resources/skins/uiskin.json", Skin.class);
-		m.load("icons", "resources/icons/icons.atlas", TextureAtlas.class);
 		
 //		m.load("Ambient", "resources/Theseus_Ambient_Theme.mp3", Music.class);
 //		m.load("FX", "resources/Theseus_FX.mp3", Music.class);

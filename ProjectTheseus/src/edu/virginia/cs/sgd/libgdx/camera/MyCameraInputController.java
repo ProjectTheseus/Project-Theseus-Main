@@ -123,14 +123,14 @@ public class MyCameraInputController extends CameraInputController {
 			switch (keycode) {
 
 			// Open inventory
-			case Input.Keys.I:
-				if (!invOpen) {
-					invOpen = true;
-					mb.changeScreen(InventoryScreen.class);
-				} else {
-					invOpen = false;
-				}
-				break;
+//			case Input.Keys.I:
+//				if (!invOpen) {
+//					invOpen = true;
+//					mb.changeScreen(InventoryScreen.class);
+//				} else {
+//					invOpen = false;
+//				}
+//				break;
 
 			// Restart level
 			case Input.Keys.BACKSPACE:
