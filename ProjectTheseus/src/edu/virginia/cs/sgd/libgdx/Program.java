@@ -82,7 +82,7 @@ public class Program extends Game implements ApplicationListener {
 
 		m.load("Wall", "resources/Rough Block Wall.jpg", Texture.class);
 		m.load("Minotaur", "resources/Minotaur.jpg", Texture.class);
-		m.load("SplashScreen", "resources/splash.jpg", Texture.class);
+		m.load("SplashScreen", "resources/logo.jpg", Texture.class);
 		m.load("WhiteOut", "resources/white.jpg", Texture.class);
 		m.load("uiskin", "resources/skins/uiskin.json", Skin.class);
 		m.load("icons", "resources/icons/icons.atlas", TextureAtlas.class);

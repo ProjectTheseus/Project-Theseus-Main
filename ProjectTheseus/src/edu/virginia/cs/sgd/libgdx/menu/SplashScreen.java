@@ -53,7 +53,6 @@ public class SplashScreen extends AbstractScreen {
 
 	@Override
 	public void touchDown(int screenX, int screenY, int pointer, int button) {
-		if (screenX > 400 && screenX < 624 && screenY > 550 && screenY < 600) {
 			splashImage.addAction(sequence(fadeOut(0.75f), new Action() {
 
 				@Override
@@ -66,6 +65,5 @@ public class SplashScreen extends AbstractScreen {
 			}));
 
 			stage.addActor(splashImage);
-		}
 	}
 }
