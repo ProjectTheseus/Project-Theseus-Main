@@ -14,6 +14,7 @@ import edu.virginia.cs.sgd.libgdx.entities.Creature;
 import edu.virginia.cs.sgd.libgdx.entities.Entity;
 import edu.virginia.cs.sgd.libgdx.g3d.Maze;
 import edu.virginia.cs.sgd.libgdx.g3d.MazeBuilder;
+import edu.virginia.cs.sgd.libgdx.g3d.MazeNode;
 import edu.virginia.cs.sgd.libgdx.inventory.Inventory;
 import edu.virginia.cs.sgd.libgdx.player.Player;
 
@@ -26,6 +27,7 @@ public class Game {
 	private ArrayList<Entity> turnOrder;
 	private boolean playerTurn;
 	private int turnNum = 0;
+	private boolean spawned = false;
 
 	private static int level = 1;
 
@@ -81,6 +83,8 @@ public class Game {
 
 	public void nextLevel() {
 		level++;
+		turnNum = 0;
+		spawned = false;
 		initialize(level);
 		mb.changeScreen(MazeBuilder.class);
 	}
@@ -144,10 +148,14 @@ public class Game {
 				}
 			}
 			System.out.println("Turn #: " + turnNum);
-			if (turnNum == 2 * level + 15){
-				Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10, true);
-				creatures.add(creature);
-				mb.spawnCreature(creature);
+			if (!spawned && turnNum > 2 * level + 15){
+				MazeNode playerLoc = player.getCam().getCurrent();
+				if (playerLoc != null && !getMaze().getStart().equals(playerLoc)) {
+					spawned  = true;
+					Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10, true);
+					creatures.add(creature);
+					mb.spawnCreature(creature);
+				}
 			}
 			playerTurn = true;
 		}
