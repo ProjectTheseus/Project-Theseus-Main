@@ -35,6 +35,7 @@ public class Creature extends Entity {
 		super(location, maxH, atk, def, spd);
 		this.game = game;
 		this.player = game.getPlayer();
+		this.mat = new Material();
 		this.mat.set(TextureAttribute.createDiffuse((Texture) sam.get("Minotaur")));
 	}
 	
