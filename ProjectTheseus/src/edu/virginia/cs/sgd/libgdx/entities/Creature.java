@@ -63,15 +63,18 @@ public class Creature extends Entity {
 
 	public boolean detectPlayerRange() {
 		if (player.getCam().getCurrent() != null) {
-			Path p = new Path(game.getMaze(), this.location, player.location);
-			int xdiff = Math.abs(this.location.getX()
-					- player.getCam().getCurrent().getX());
-			int ydiff = Math.abs(this.location.getY()
-					- player.getCam().getCurrent().getY());
-			if (p.shortPathLen() <= this.perception) {
+			MazeNode ploc = player.getCam().getCurrent();
+			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
+			System.out.println("Loc: " + location.getX() + ", " + location.getY());
+			System.out.println("Player loc: " + ploc.getX() + ", " + ploc.getY());
+			System.out.println("Length: " + p.shortPathLen());
+			System.out.println(p.getDirArray());
+			if (p.shortPathLen() <= this.perception + 1) {
+				System.out.println("True");
 				return true;
 			}
 		}
+		System.out.println("False");
 		return false;
 	}
 
@@ -79,7 +82,8 @@ public class Creature extends Entity {
 		if (this.detectPlayer()) {
 			this.attack(player);
 		} else if (this.detectPlayerRange()) {
-			Path p = new Path(game.getMaze(), this.location, player.location);
+			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
+			System.out.println("Turns: " + p.getNumTurns());
 			if (p.getNumTurns() < 3) {
 				this.setLocation(this.location.getNeighbors()[p.getDirArray()
 						.get(0)]);
