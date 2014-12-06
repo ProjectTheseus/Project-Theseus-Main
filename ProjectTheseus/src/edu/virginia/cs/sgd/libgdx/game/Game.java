@@ -25,6 +25,7 @@ public class Game {
 	private ArrayList<Inventory> treasure;
 	private ArrayList<Entity> turnOrder;
 	private boolean playerTurn;
+	private int turnNum = 0;
 
 	private static int level = 1;
 
@@ -134,6 +135,7 @@ public class Game {
 	 *            the playerTurn to set
 	 */
 	public void endPlayerTurn() {
+		turnNum ++;
 		playerTurn = false;
 		if (!playerTurn) {
 			if (this.getCreatures().size() > 0) {
@@ -141,7 +143,8 @@ public class Game {
 					creature.determineBestAction();
 				}
 			}
-			if (getMaze().getMoveCount() > level + 10){
+			System.out.println("Turn #: " + turnNum);
+			if (turnNum > 2 * level + 15){
 				Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10);
 				creatures.add(creature);
 				mb.spawnCreature(creature);

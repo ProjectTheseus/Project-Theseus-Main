@@ -84,7 +84,6 @@ public class Creature extends Entity {
 				return true;
 			}
 		}
-		System.out.println("False");
 		return false;
 	}
 
@@ -93,7 +92,6 @@ public class Creature extends Entity {
 			this.attack(player);
 		} else if (aggressive || this.detectPlayerRange()) {
 			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
-			System.out.println("Turns: " + p.getNumTurns());
 			if (p.getNumTurns() < 3) {
 				this.setLocation(this.location.getNeighbors()[p.getDirArray()
 						.get(0)]);
