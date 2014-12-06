@@ -64,10 +64,11 @@ public class Creature extends Entity {
 	public boolean detectPlayerRange() {
 		if (player.getCam().getCurrent() != null) {
 			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
-			if (p.shortPathLen() <= this.perception) {
+			if (p.shortPathLen() <= this.perception + 1) {
 				return true;
 			}
 		}
+		System.out.println("False");
 		return false;
 	}
 
@@ -75,7 +76,8 @@ public class Creature extends Entity {
 		if (this.detectPlayer()) {
 			this.attack(player);
 		} else if (this.detectPlayerRange()) {
-			Path p = new Path(game.getMaze(), this.location, player.location);
+			Path p = new Path(game.getMaze(), this.location, player.getCam().getCurrent());
+			System.out.println("Turns: " + p.getNumTurns());
 			if (p.getNumTurns() < 3) {
 				this.setLocation(this.location.getNeighbors()[p.getDirArray()
 						.get(0)]);
