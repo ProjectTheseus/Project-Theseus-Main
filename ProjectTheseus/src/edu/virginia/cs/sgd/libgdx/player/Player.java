@@ -100,7 +100,10 @@ public class Player extends Entity {
 
 		nextLevelXp = level * level * 1000;
 
-		maxHealth += 10;
+		maxHealth *= 1.25;
+		currentHealth += 50;
+		defense += 5;
+		attack += 5;
 
 		if (xp >= nextLevelXp) {
 			levelUp();

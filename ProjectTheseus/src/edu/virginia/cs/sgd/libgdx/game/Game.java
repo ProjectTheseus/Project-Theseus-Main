@@ -153,7 +153,7 @@ public class Game {
 					}
 				}
 				System.out.println("Turn #: " + turnNum);
-				if (!spawned && turnNum > 2 * level + 15){
+				if (!spawned && turnNum > (level * level) + 15){
 					MazeNode playerLoc = player.getCam().getCurrent();
 					if (!getMaze().getStart().equals(playerLoc)) {
 						spawned  = true;
