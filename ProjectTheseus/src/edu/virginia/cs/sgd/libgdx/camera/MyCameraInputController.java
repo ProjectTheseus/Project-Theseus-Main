@@ -219,6 +219,15 @@ public class MyCameraInputController extends CameraInputController {
 								(int) (game.getPlayer().getMaxHealth() * 0.05));
 						m.incrementMoveCount();
 						game.endPlayerTurn();
+					} else if (current.equals(m.getEnd())
+							&& faceTo == m.getStartSide()) {
+						current = current.getNeighbors()[backTo];
+						new Thread(pull).start();
+						game.getPlayer().heal(
+								(int) (game.getPlayer().getMaxHealth() * 0.05));
+						m.incrementMoveCount();
+						prevTime = System.currentTimeMillis();
+						game.endPlayerTurn();
 					}
 					prevTime = System.currentTimeMillis();
 

@@ -139,25 +139,27 @@ public class Game {
 	 *            the playerTurn to set
 	 */
 	public void endPlayerTurn() {
-		turnNum ++;
-		playerTurn = false;
-		if (!playerTurn) {
-			if (this.getCreatures().size() > 0) {
-				for (Creature creature : creatures) {
-					creature.determineBestAction();
+		if (player.getCam().getCurrent() != null) {
+			turnNum ++;
+			playerTurn = false;
+			if (!playerTurn) {
+				if (this.getCreatures().size() > 0) {
+					for (Creature creature : creatures) {
+						creature.determineBestAction();
+					}
 				}
-			}
-			System.out.println("Turn #: " + turnNum);
-			if (!spawned && turnNum > 2 * level + 15){
-				MazeNode playerLoc = player.getCam().getCurrent();
-				if (playerLoc != null && !getMaze().getStart().equals(playerLoc)) {
-					spawned  = true;
-					Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10, true);
-					creatures.add(creature);
-					mb.spawnCreature(creature);
+				System.out.println("Turn #: " + turnNum);
+				if (!spawned && turnNum > 2 * level + 15){
+					MazeNode playerLoc = player.getCam().getCurrent();
+					if (!getMaze().getStart().equals(playerLoc)) {
+						spawned  = true;
+						Creature creature = new Creature(this, getMaze().getStart(), 300, 40, 10, 10, true);
+						creatures.add(creature);
+						mb.spawnCreature(creature);
+					}
 				}
+				playerTurn = true;
 			}
-			playerTurn = true;
 		}
 	}
 
