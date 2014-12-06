@@ -148,6 +148,9 @@ public class MyCameraInputController extends CameraInputController {
 					new Thread(pivot).start();
 					changeDir(true);
 					prevTime = System.currentTimeMillis();
+					for (Creature creature: game.getCreatures()) {
+						creature.rotateToFace();
+					}
 				}
 				break;
 
@@ -162,6 +165,9 @@ public class MyCameraInputController extends CameraInputController {
 					new Thread(pivot).start();
 					changeDir(false);
 					prevTime = System.currentTimeMillis();
+					for (Creature creature: game.getCreatures()) {
+						creature.rotateToFace();
+					}
 				}
 				break;
 
@@ -481,5 +487,9 @@ public class MyCameraInputController extends CameraInputController {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+	
+	public int getFaceTo() {
+		return faceTo;
 	}
 }

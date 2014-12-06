@@ -23,6 +23,7 @@ public class Creature extends Entity {
 	private Material mat;
 	public SingletonAssetManager sam = SingletonAssetManager.getInstance();
 	private boolean aggressive = false;
+	private int looking;
 
 	private final float moveLen = (float) MazeBuilder.spacing / 100;
 
@@ -36,13 +37,16 @@ public class Creature extends Entity {
 		this.game = game;
 		this.player = game.getPlayer();
 		this.mat = new Material();
-		this.mat.set(TextureAttribute.createDiffuse((Texture) sam.get("Minotaur")));
+		Random rand = new Random();
+		this.mat.set(TextureAttribute.createDiffuse((Texture) sam.get("Orc" + (rand.nextInt(3) + 1))));
+		this.looking = 0;
 	}
 	
 	public Creature(Game game, MazeNode location, int maxH, int atk, int def,
 			int spd, boolean aggressive) {
 		this(game, location, maxH, atk, def, spd);
 		this.aggressive = aggressive;
+		this.mat.set(TextureAttribute.createDiffuse((Texture) sam.get("Minotaur")));
 	}
 
 	@Override
@@ -129,6 +133,19 @@ public class Creature extends Entity {
 
 	public void setBox(ModelInstance box) {
 		this.box = box;
+		rotateToFace();
+	}
+	
+	public void rotateToFace() {
+		int rotateBy = player.getCam().getFaceTo() - looking - 1;
+		if (rotateBy < 0) {
+			rotateBy = 3 + (player.getCam().getFaceTo() - looking);
+		}
+		box.transform.rotate(0, 0, 1, 90*rotateBy);
+		looking = looking + rotateBy;
+		if (looking > 3) {
+			looking -= 4;
+		}
 	}
 	
 	public Material getMaterial() {
@@ -166,7 +183,10 @@ public class Creature extends Entity {
 
 		public cPull(Creature c, int direction) {
 			this.c = c;
-			this.direction = direction;
+			this.direction = direction - looking;
+			if (this.direction < 0) {
+				this.direction = 3 + (direction - looking + 1);
+			}
 		}
 
 		@Override
